@@ -1,0 +1,46 @@
+{
+  "name": "judge-toolkit",
+  "version": "0.0.1",
+  "description": "various of toolCLI for code judge, exam, test, etc.",
+  "main": "index.ts",
+  "bin": {
+    "toolkit": "node dist/src/index.js"
+  },
+  "scripts": {
+    "start": "babel-node -x \".ts\" src/index.ts",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir dist/src --extensions \".ts,.tsx\" --source-maps inline"
+  },
+  "author": "sharlottes",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "commander": "^10.0.0",
+    "hjson": "^3.2.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "latest",
+    "@babel/core": "latest",
+    "@babel/plugin-proposal-class-properties": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-typescript": "latest",
+    "@babel/node": "latest",
+    "@types/hjson": "latest",
+    "@types/node": "latest",
+    "typescript": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sharlottes/judgekit.git"
+  },
+  "homepage": "https://github.com/sharlottes/judgekit.git",
+  "keywords": [
+    "typescript",
+    "node",
+    "judge",
+    "cli"
+  ]
+}
