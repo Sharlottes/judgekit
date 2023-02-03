@@ -65,7 +65,7 @@ class JudgeTester {
   }
 
   private async runTestCase() {
-    const buffer = fs.readFileSync(path.join(__dirname, this.testCasePath));
+    const buffer = fs.readFileSync(path.join(process.cwd(), this.testCasePath));
     const testCases = Array.from<string>(HJSON.parse(buffer.toString()));
 
     console.log(
