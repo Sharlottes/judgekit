@@ -1,8 +1,10 @@
+#!/usr/bin/env node
+
 import { program } from "commander";
 import JudgeTester from "./JudgeTester";
 
 program
-  .version("0.0.1v")
+  .version("0.0.2v")
   .name("Code Judge Quick-Tester")
   .description("arious of toolCLI for code judge, exam, test, etc.");
 program
