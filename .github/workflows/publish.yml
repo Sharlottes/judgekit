@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Cache build files
         uses: actions/cache@v3
         with:
@@ -20,12 +20,12 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      
+
       - name: Install dependencies
         run: yarn
       - name: Build
         run: yarn build
-      
+
   publish-gpr:
     needs: build
     runs-on: ubuntu-latest
@@ -34,16 +34,19 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v3
-    
+
       - name: Use Node.js 14.x
         uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@sharlottes'
+          node-version: "14.x"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@sharlottes"
           always-auth: true
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-          
+
       - name: Publish to NPM
-        run: npm publish
+        run: npm publish --access public
+
+      - name: Check NPM
+        run: npm info judge-toolkit
