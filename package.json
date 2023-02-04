@@ -4,16 +4,16 @@
   "description": "various of toolCLI for code judge, exam, test, etc.",
   "main": "index.ts",
   "bin": {
-    "toolkit": "node dist/src/index.js"
+    "toolkit": "node dist/index.js"
   },
   "scripts": {
     "start": "babel-node -x \".ts\" src/index.ts",
     "dev": "yarn build && npm link && toolkit",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run build:types && npm run build:js",
+    "build": "rm -rf dist && npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir dist/src --extensions \".ts,.tsx\" --source-maps inline"
+    "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline"
   },
   "author": "sharlottes",
   "license": "MIT",
