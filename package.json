@@ -36,7 +36,7 @@
     "typescript": "latest"
   },
   "publishConfig": {
-    "@sharlottes:registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
