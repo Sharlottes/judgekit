@@ -10,6 +10,8 @@ on:
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     permissions:
       contents: read
       packages: write
@@ -30,14 +32,14 @@ jobs:
         
       - name: Publish to NPM
         run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           
       - name: Check NPM
         run: npm info judge-toolkit
         
   publich-gpr:
       runs-on: ubuntu-latest
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       permissions:
         contents: read
         packages: write
@@ -57,6 +59,4 @@ jobs:
         
         - name: Publish to GPR
           run: npm publish
-          env:
-            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
