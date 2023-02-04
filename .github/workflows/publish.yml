@@ -18,19 +18,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16.x"
+          registry-url: https://registry.npmjs.org
+          always-auth: true
           
       - name: Build
         run: |
           npm ci
           npm run build
-
-      - uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          access: public
-          
-      - name: Publish to NPM
-        run: npm publish
-        
-      - name: Check NPM
-        run: npm info judge-toolkit
+      
+      - run: npm login --registry=https://registry.npmjs.org/ 
+      - run: npm public
+      - run: npm info judge-toolkit
