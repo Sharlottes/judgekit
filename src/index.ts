@@ -4,7 +4,7 @@ import { program } from "commander";
 import JudgeTester from "./JudgeTester";
 
 program
-  .version("0.0.2v")
+  .version("0.0.3")
   .name("Code Judge Quick-Tester")
   .description("arious of toolCLI for code judge, exam, test, etc.");
 program
