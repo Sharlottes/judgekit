@@ -7,7 +7,7 @@
     "toolkit": "node dist/src/index.js"
   },
   "scripts": {
-    "start": "babel-node --experimental-modules -x \".ts\" src/index.ts",
+    "start": "babel-node -x \".ts\" src/index.ts",
     "dev": "yarn build && npm link && toolkit",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",

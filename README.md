@@ -63,5 +63,6 @@ first of all, the strongest benefit of hjson in this testcase's usage is **multi
 ## TODO
 
 - [ ] supports json testcase format too
-- [ ] add some code generation templates
-- [ ] supports test code
+- [x] add some code generation templates
+  - [ ] more built-in code templates and choose prompt
+- [ ] supports test code(jest?)
