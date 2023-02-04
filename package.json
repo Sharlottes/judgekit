@@ -35,6 +35,9 @@
     "@types/node": "latest",
     "typescript": "latest"
   },
+  "publishConfig": {
+    "@sharlottes:registry": "https://npm.pkg.github.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sharlottes/judgekit.git"
