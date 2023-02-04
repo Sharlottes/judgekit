@@ -1,5 +1,5 @@
 {
-  "name": "@sharlottes/judge-toolkit",
+  "name": "judge-toolkit",
   "version": "0.0.4",
   "description": "various of toolCLI for code judge, exam, test, etc.",
   "main": "index.ts",
