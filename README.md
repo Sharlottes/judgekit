@@ -2,14 +2,12 @@
 
 the CLI node module for code judge quick testing.
 
-## About
-
 Judge Toolkit is made for quick code generation and easy code testing.
 in this modules, everytime you test code, new node process is created for running given script file. so you don't need to touch something in terminal for testing after changing script file. just enter in termial!
 
 this modules is based on [my tester.js gist](https://gist.github.com/Sharlottes/b2332b88695d11686dab5b9248c433da). most things in there are same in here too, so it's not bad choice to see the gist.
 
-## Installation
+# Installation
 
 because it is CLI modules, i strongly suggest to install in global.
 
@@ -19,37 +17,42 @@ or
 
 > npm install -g judge-toolkit
 
-## Command
+# Features
 
 base comamnd is `toolkit`, every arguments, options, subcommands are based on this command.
+first of all, you can all comamnd via `toolkit --help` command.
 
-### load script
+## Test script
 
-to load special script file, enter this.
+you can run special javascript file by running this command.
 
-> toolkit 1000
+```bash
+toolkit test <script[.js]>
+toolkit test 1000
+toolkit test 1000.js
+```
 
-p.s. only javascript is valid, so you don't need to type `.js` extension yourself as you see above command.
+because only javascript is valid in this CLI, you don't have to type `.js` extension yourself as you see above command.
+also you don't have to restart CLI when changing script file. why? because script processor is re-created everytime you continue test.
+everytime processor is created, it load latest script codes again and again. so you don't have to restart anything anymore.
+because of this feature, you also don't have to restart CLI when changing testcase hjson file too.
 
-### load script with testcase mode
+## Test script with Test Case
 
 to load special script file and run testcase datas automatically, enter this.
 
-> toolkit 1000 -TC
+```bash
+toolkit test <script[.js]> -TC
+toolkit test <script[.js]> --testcase
+toolkit test <script[.js]> --testcase customHJSON.hjson
+```
 
-or
-
-> toolkit 1000 --testcase
-
-...or if you have custom file,
-
-> toolkit 1000 -TC customHJSON.hjson
-
-the default testcase file's name is `testcase.hjson`
+as you see, if you have custom file you can also use it.
+the default testcase file's name is `testcase.hjson`.
 
 notice that `-tc` flag is _not_ valid. ~~yeah i know this is weird...~~
 
-## TestCase
+### Test Case
 
 the testcase file is designed for automatically input.
 you can see example format in [here](https://github.com/Sharlottes/judgekit/blob/master/examples/testcase.hjson)
@@ -60,9 +63,26 @@ first of all, the strongest benefit of hjson in this testcase's usage is **multi
 
 `testcase.hjson` is default file of TestCase. you can customize the name and use to `--testcase` flag's value. at least, `testcase.hjson` should be in CMD path (current terminal path).
 
-## TODO
+## Code Generation (WIP)
 
-- [ ] supports json testcase format too
+tired about typing same codes everytime start code exam or judge problems?
+code generation command will copy-paste boilerplate codes from `templates/` directory.
+currently you can only one template - `readline_ex.js`, but i will add more template scripts and support custom template via comamnd argument.
+
+you can use code generation by this command.
+
+```bash
+toolkit generate <script_name[.js]> [target_template_script] [-O outdir]
+toolkit generate examples/1000
+toolkit generate 1000 -O examples
+```
+
+# TODO
+
+- [ ] Internationalize Project
+  - [ ] support english CLI
+  - [ ] support korean README
+- [ ] support json testcase format too
 - [x] add some code generation templates
   - [ ] more built-in code templates and choose prompt
-- [ ] supports test code(jest?)
+- [ ] support test code(jest?)
