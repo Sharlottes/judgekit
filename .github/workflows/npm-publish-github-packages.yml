@@ -8,23 +8,36 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Projects
       - uses: actions/checkout@v3
-      - run: yarn
+      - name: Cache build files
+      - uses: actions/cache@v3.2.4
+        with:
+          path: |
+            package.json
+            ./dist
+          key: "built files"
+      - run: yarn install --immutable --immutable-cache --check-cache
       - run: yarn build
-
+      
   publish-gpr:
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
     steps:
+      - name: Use Node.js ${{ matrix.node-version }}
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
           registry-url: 'https://npm.pkg.github.com'
           scope: '@sharlottes'
           always-auth: true
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - run: yarn publish
+      - name: Publish to NPM
+      - run: npm publish
