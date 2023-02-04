@@ -42,13 +42,11 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
           scope: "@sharlottes"
           always-auth: true
-      - name: NPM Login
-        run: npm login --registry=https://npm.pkg.github.com --scope=@sharlottes
-
-      - name: Publish to NPM
-        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
+      - name: Publish to NPM
+        run: npm publish --access public
       
       - name: Check NPM
         run: npm info judge-toolkit
