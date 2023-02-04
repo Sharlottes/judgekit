@@ -13,7 +13,7 @@
     "type-check:watch": "npm run type-check -- --watch",
     "build": "rm -rf dist && npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline"
+    "build:js": "babel src --out-dir dist --extensions \".ts\" --source-maps inline"
   },
   "author": "sharlottes",
   "license": "MIT",
