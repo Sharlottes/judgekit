@@ -26,6 +26,6 @@ jobs:
           npm ci
           npm run build
       
-      - run: npm login --registry=https://registry.npmjs.org/ 
+      - run: npm adduser --registry=https://registry.npmjs.org/ 
       - run: npm public
       - run: npm info judge-toolkit
