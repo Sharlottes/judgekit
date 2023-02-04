@@ -1,33 +1,14 @@
 name: Node.js Package
 
 on:
+  push: 
+    branches:
+      - master
   release:
     types: [created]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Cache build files
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/dist
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
-      - name: Install dependencies
-        run: yarn
-      - name: Build
-        run: yarn build
-
-  publish-gpr:
-    needs: build
+  publish-npm:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -39,14 +20,43 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16.x"
-          registry-url: "https://npm.pkg.github.com"
-          scope: "@sharlottes"
-          always-auth: true
-
+          registry-url: "https://registry.npmjs.org"
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build
+        run: npm run build
+        
       - name: Publish to NPM
-        run: yarn publish
+        run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
       - name: Check NPM
         run: npm info judge-toolkit
+        
+  publich-gpr:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        packages: write
+      steps:
+        - uses: actions/checkout@v3
+
+        - name: Use Node.js 16.x
+          uses: actions/setup-node@v3
+          with:
+            registry-url: 'https://npm.pkg.github.com'
+            
+        - name: Install dependencies
+          run: npm ci
+
+        - name: Build
+          run: npm run build
+        
+        - name: Publish to GPR
+          run: npm publish
+          env:
+            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
