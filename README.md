@@ -3,19 +3,20 @@
 the CLI node module for code judge quick testing.
 
 Judge Toolkit is made for quick code generation and easy code testing.
-in this modules, everytime you test code, new node process is created for running given script file. so you don't need to touch something in terminal for testing after changing script file. just enter in termial!
+in this modules, everytime you test code, new node process is created for running given script file.
+so you don't need to touch something in terminal for testing after changing script file. just enter in termial!
 
-this modules is based on [my tester.js gist](https://gist.github.com/Sharlottes/b2332b88695d11686dab5b9248c433da). most things in there are same in here too, so it's not bad choice to see the gist.
+this modules is based on [my tester.js gist](https://gist.github.com/Sharlottes/b2332b88695d11686dab5b9248c433da).
+most things in there are same in here too, so it's not bad choice to see the gist.
 
 # Installation
 
 because it is CLI modules, i strongly suggest to install in global.
 
-> yarn global add judge-toolkit
-
-or
-
-> npm install -g judge-toolkit
+```bash
+yarn global add judge-toolkit
+npm install -g judge-toolkit
+```
 
 # Features
 
