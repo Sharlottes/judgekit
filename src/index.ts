@@ -2,12 +2,14 @@
 
 import { program } from "commander";
 import JudgeTester from "./JudgeTester";
+import CodeGenerator from "./CodeGenerator";
 
 program
   .version("0.0.3")
   .name("Code Judge Quick-Tester")
-  .description("arious of toolCLI for code judge, exam, test, etc.");
+  .description("Various of toolCLI for code judge, exam, test, etc.");
 program
+  .command("test")
   .argument(
     "<codepath>",
     "the javascript code file name or path. it does't need to contain extension"
@@ -19,4 +21,24 @@ program
   .action((codePath: string, options: Record<string, any>) => {
     new JudgeTester(codePath, options).start();
   });
+program
+  .command("generate")
+  .argument(
+    "<script_name>",
+    "the script name to generate. you don't need to type `.js` extension"
+  )
+  .argument(
+    "[template_name]",
+    "the template name to copy. default: readline_ex.js",
+    "readline_ex.js"
+  )
+  .option(
+    "-O, --outdir [out directory]",
+    "output directory for generated script",
+    ""
+  )
+  .action(
+    (scriptName: string, templateName: string, options: Record<string, any>) =>
+      new CodeGenerator(scriptName, templateName, options.outdir).start()
+  );
 program.parse(process.argv);

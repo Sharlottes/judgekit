@@ -7,7 +7,7 @@
     "toolkit": "node dist/src/index.js"
   },
   "scripts": {
-    "start": "babel-node -x \".ts\" src/index.ts",
+    "start": "babel-node --experimental-modules -x \".ts\" src/index.ts",
     "dev": "yarn build && npm link && toolkit",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
@@ -18,18 +18,20 @@
   "author": "sharlottes",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^5.2.0",
+    "chalk": "4.0.0",
     "commander": "^10.0.0",
-    "hjson": "^3.2.2"
+    "hjson": "^3.2.2",
+    "inquirer": "^8.2.5"
   },
   "devDependencies": {
     "@babel/cli": "latest",
     "@babel/core": "latest",
+    "@babel/node": "latest",
     "@babel/plugin-proposal-class-properties": "latest",
     "@babel/preset-env": "latest",
     "@babel/preset-typescript": "latest",
-    "@babel/node": "latest",
     "@types/hjson": "latest",
+    "@types/inquirer": "^9.0.3",
     "@types/node": "latest",
     "typescript": "latest"
   },
