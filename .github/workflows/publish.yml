@@ -47,6 +47,8 @@ jobs:
           
       - name: Publish to NPM
         run: npm publish --access public
-      
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
       - name: Check NPM
         run: npm info judge-toolkit
