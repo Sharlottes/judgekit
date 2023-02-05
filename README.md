@@ -1,4 +1,14 @@
-# Judge Toolkit
+<h1 align="center">Judge Toolkit</h1>
+<div align="center">
+
+[![typescript](https://img.shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=white)](https://www.typescriptlang.org/)
+[![license](https://img.shields.io/badge/license-MIT-critical)](https://github.com/Sharlottes/judgekit/blob/master/LICENSE)
+[![GitHub Repo stars](https://img.shields.io/github/stars/sharlottes/judgekit?label=Please%20star%20me%21&style=social)](https://github.com/sharlottes/judgekit/stargazers)
+
+[![Node.js Package](https://github.com/Sharlottes/judgekit/actions/workflows/publish.yml/badge.svg)](https://github.com/Sharlottes/judgekit/actions/workflows/publish.yml)
+[![Discord](https://img.shields.io/badge/Sharlotte%230018-7289DA?logo=discord&logoColor=white&style=flat-square)](https://discordapp.com/users/473072758629203980)
+
+</div>
 
 the CLI node module for code judge quick testing.
 
@@ -20,7 +30,7 @@ npm install -g judge-toolkit
 
 # Features
 
-base comamnd is `toolkit`, every arguments, options, subcommands are based on this command.
+base comamnd is `toolkit`. every arguments, options, subcommands are based on this command.  
 first of all, you can all comamnd via `toolkit --help` command.
 
 ## Test script
@@ -34,9 +44,12 @@ toolkit test 1000.js
 ```
 
 because only javascript is valid in this CLI, you don't have to type `.js` extension yourself as you see above command.
-also you don't have to restart CLI when changing script file. why? because script processor is re-created everytime you continue test.
+also you don't have to restart CLI when changing script file. why? because script processor is re-created everytime you continue test.  
 everytime processor is created, it load latest script codes again and again. so you don't have to restart anything anymore.
-because of this feature, you also don't have to restart CLI when changing testcase hjson file too.
+
+![](https://i.imgur.com/pMkrByK.gif)
+
+\+ because of this feature, you also don't have to restart CLI when changing testcase hjson file too.
 
 ## Test script with Test Case
 
@@ -66,24 +79,27 @@ first of all, the strongest benefit of hjson in this testcase's usage is **multi
 
 ## Code Generation (WIP)
 
-tired about typing same codes everytime start code exam or judge problems?
+tired about typing same codes everytime start code exam or judge problems?  
 code generation command will copy-paste boilerplate codes from `templates/` directory.
-currently you can only one template - `readline_ex.js`, but i will add more template scripts and support custom template via comamnd argument.
 
-you can use code generation by this command.
+the comamnd format is same as below examples.
 
 ```bash
-toolkit generate <script_name[.js]> [target_template_script] [-O outdir]
+toolkit generate <script_name[.js]> [template_script_name[.js]] [-O outdir]
 toolkit generate examples/1000
 toolkit generate 1000 -O examples
 ```
+
+> **notice**  
+> currently you can use only one template - `readline_ex.js`, but i will add more template scripts and support custom template via command argument.
 
 # TODO
 
 - [ ] Internationalize Project
   - [x] support english CLI
   - [ ] support korean README
-- [ ] support json testcase format too
+- [ ] support json/yaml testcase format too
+- [ ] support pre-run input mapper scripts
 - [x] add some code generation templates
   - [ ] more built-in code templates and choose prompt
 - [ ] support test code(jest?)
