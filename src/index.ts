@@ -5,7 +5,7 @@ import JudgeTester from "./commands/JudgeTester";
 import CodeGenerator from "./commands/CodeGenerator";
 
 program
-  .version("0.0.4")
+  .version("0.0.5")
   .name("Code Judge Quick-Tester")
   .description("Various of toolCLI for code judge, exam, test, etc.");
 program
