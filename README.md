@@ -96,6 +96,18 @@ toolkit generate 1000 -O examples
 > **notice**  
 > currently you can use only one template - `readline_ex.js`, but i will add more template scripts and support custom template via command argument.
 
+## Config
+
+Judge Toolkit CLI accepts config file called `kitconfig.json`. config file should be in current working directory, meaing it is in same path as `testcase.hjson`.
+
+```json
+{
+  "currentLang": "ko"
+}
+```
+
+`currentLang` - the language that CLI uses
+
 # TODO
 
 - [x] Internationalize Project

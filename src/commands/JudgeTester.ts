@@ -3,7 +3,7 @@ import HJSON from "hjson";
 import path from "path";
 import childProcess from "child_process";
 import rl from "readline";
-import Bundle from "../assets/bundles/Bundle";
+import Bundle from "../Bundle";
 import inquirer from "inquirer";
 import Strings from "../utils/Strings";
 
@@ -28,7 +28,7 @@ class JudgeTester {
 
   public start() {
     console.log(
-      `    ${Bundle.commands.test.title}    `,
+      `    ${Bundle.current.commands.test.title}    `,
       "\n================================="
     );
 
@@ -72,7 +72,10 @@ class JudgeTester {
     const testCases = Array.from<string>(HJSON.parse(buffer.toString()));
 
     console.log(
-      Strings.format(Bundle.commands.test.testcase_found, testCases.length)
+      Strings.format(
+        Bundle.current.commands.test.testcase_found,
+        testCases.length
+      )
     );
     await Promise.all(
       testCases.map((line) => this.forkProcess((handler) => handler(line)))
@@ -80,7 +83,7 @@ class JudgeTester {
     const { confirm_testcase } = await inquirer.prompt({
       type: "confirm",
       name: "confirm_testcase",
-      message: Bundle.commands.test.testcase_continue,
+      message: Bundle.current.commands.test.testcase_continue,
       default: true,
     });
     this.testCaseMode = confirm_testcase;
@@ -88,9 +91,11 @@ class JudgeTester {
 
   private async runCode() {
     await this.forkProcess((handler) => rlI.once("line", (s) => handler(s)));
-    await asyncQuestion(Bundle.commands.test.test_continue).then((res) => {
-      if (res.toUpperCase() == "T") this.testCaseMode = true;
-    });
+    await asyncQuestion(Bundle.current.commands.test.test_continue).then(
+      (res) => {
+        if (res.toUpperCase() == "T") this.testCaseMode = true;
+      }
+    );
   }
 }
 

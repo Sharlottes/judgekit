@@ -90,3 +90,15 @@ toolkit generate 1000 -O examples
 
 > **참고**
 > 현재는 오직 `readline_ex.js` 템플릿만 사용할 수 있습니다. 하지만 전 더 많은 템플릿과 매개변수를 통한 확장 기능을 추가할겁니다.
+
+## 설정
+
+Judge Toolkit CLI 는 `kitconfig.json`로 설정 파일을 가져옵니다. 설정 파일은 현재 실행 디렉토리 위치에 있어야 합니다. 즉, `testcase.hjson`과 같은 위치에 있어야 합니다.
+
+```json
+{
+  "currentLang": "ko"
+}
+```
+
+`currentLang` - CLI가 사용할 언어

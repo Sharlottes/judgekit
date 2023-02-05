@@ -3,7 +3,6 @@
 import { program } from "commander";
 import JudgeTester from "./commands/JudgeTester";
 import CodeGenerator from "./commands/CodeGenerator";
-import "./assets/bundles/Bundle";
 
 program
   .version("0.0.4")
