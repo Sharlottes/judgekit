@@ -27,7 +27,6 @@
     "@babel/cli": "latest",
     "@babel/core": "latest",
     "@babel/node": "latest",
-    "@babel/plugin-proposal-class-properties": "latest",
     "@babel/preset-env": "latest",
     "@babel/preset-typescript": "latest",
     "@types/hjson": "latest",
