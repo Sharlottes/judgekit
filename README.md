@@ -8,16 +8,19 @@
 [![Node.js Package](https://github.com/Sharlottes/judgekit/actions/workflows/publish.yml/badge.svg)](https://github.com/Sharlottes/judgekit/actions/workflows/publish.yml)
 [![Discord](https://img.shields.io/badge/Sharlotte%230018-7289DA?logo=discord&logoColor=white&style=flat-square)](https://discordapp.com/users/473072758629203980)
 
+\- [한국어](https://github.com/Sharlottes/judgekit/blob/master/readmes/README_ko.md) \-
+
 </div>
 
 the CLI node module for code judge quick testing.
 
-Judge Toolkit is made for quick code generation and easy code testing.
+Judge Toolkit is made for easy code generation and quick code testing.
 in this modules, everytime you test code, new node process is created for running given script file.
-so you don't need to touch something in terminal for testing after changing script file. just enter in termial!
+so you don't need to touch something in terminal for testing after changing script file. just press enter key in termial!
 
-this modules is based on [my tester.js gist](https://gist.github.com/Sharlottes/b2332b88695d11686dab5b9248c433da).
-most things in there are same in here too, so it's not bad choice to see the gist.
+> **notice**  
+> this modules is based on [my tester.js gist](https://gist.github.com/Sharlottes/b2332b88695d11686dab5b9248c433da).
+> most things in there are same in here too, but it's not bad choice to see the gist.
 
 # Installation
 
@@ -31,11 +34,11 @@ npm install -g judge-toolkit
 # Features
 
 base comamnd is `toolkit`. every arguments, options, subcommands are based on this command.  
-first of all, you can all comamnd via `toolkit --help` command.
+first of all, you can see all comamnd and CLI information via `toolkit --help` command.
 
 ## Test script
 
-you can run special javascript file by running this command.
+you can run special javascript file by running `test` command as below examples.
 
 ```bash
 toolkit test <script[.js]>
@@ -53,7 +56,7 @@ everytime processor is created, it load latest script codes again and again. so 
 
 ## Test script with Test Case
 
-to load special script file and run testcase datas automatically, enter this.
+to load special script file and run testcase datas automatically, you can use `-TC` options as you see below examples.
 
 ```bash
 toolkit test <script[.js]> -TC
@@ -95,9 +98,9 @@ toolkit generate 1000 -O examples
 
 # TODO
 
-- [ ] Internationalize Project
+- [x] Internationalize Project
   - [x] support english CLI
-  - [ ] support korean README
+  - [x] support korean README
 - [ ] support json/yaml testcase format too
 - [ ] support pre-run input mapper scripts
 - [x] add some code generation templates
