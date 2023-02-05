@@ -21,7 +21,8 @@
     "chalk": "4.0.0",
     "commander": "^10.0.0",
     "hjson": "^3.2.2",
-    "inquirer": "^8.2.5"
+    "inquirer": "^8.2.5",
+    "yaml": "^2.2.1"
   },
   "devDependencies": {
     "@babel/cli": "latest",

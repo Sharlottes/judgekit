@@ -81,7 +81,7 @@ toolkit generate 1000 -O examples
 # TODO
 
 - [ ] Internationalize Project
-  - [ ] support english CLI
+  - [x] support english CLI
   - [ ] support korean README
 - [ ] support json testcase format too
 - [x] add some code generation templates

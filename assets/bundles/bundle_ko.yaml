@@ -1,0 +1,22 @@
+global:
+  error: "에러"
+  warn: "경고"
+  info: "알람"
+commands:
+  test:
+    title: "    Node.js 문제 테스터    "
+    testcase_found: "{0}개의 테스트 케이스 발견! 모두 동시에 실행됩니다..."
+    testcase_continue: "테스트 케이스를 계속 진행할까요?"
+    test_continue: "아무 키를 누르세요... (테스트 케이스 계속하기: [T])"
+  generate:
+    template_reading:
+      processing: "템플릿 코드 읽어들이는 중..."
+      done: "읽어들이기 완료!"
+      error: "{0}가 존재하지 않습니다."
+    overwrite_confirm:
+      exist: "이미 해당 이름의 파일이 존재합니다."
+      confirm: "기존 파일을 덮어씌우시겠습니까?"
+    script_creating:
+      processing: "{0} 생성 중..."
+      done: "{0} 생성 및 열람 완료!"
+    quick_test_info: "{0} 로 빠른 퀵테스트를 할 수 있습니다!"

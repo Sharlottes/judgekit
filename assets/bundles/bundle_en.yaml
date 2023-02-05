@@ -1,0 +1,22 @@
+global:
+  error: "ERROR"
+  warn: "WARN"
+  info: "INFO"
+commands:
+  test:
+    title: "    Node.js Judge Tester    "
+    testcase_found: "found {0} test cases! all test cases are tested at once..."
+    testcase_continue: "continue testing with test cases?"
+    test_continue: "press any key... (continue with test cases: [T])"
+  generate:
+    template_reading:
+      processing: "reading template file..."
+      done: "reading done!"
+      error: "{0} is not found."
+    overwrite_confirm:
+      exist: "that file name already exists."
+      confirm: "are you sure to overwrite current file?"
+    script_creating:
+      processing: "creating {0}..."
+      done: "creating {0} and opening in vscode are finished!"
+    quick_test_info: "you can start quick-test to use {0}"

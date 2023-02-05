@@ -3,6 +3,9 @@ import path from "path";
 import chalk from "chalk";
 import inquirer from "inquirer";
 import childProcess from "child_process";
+import Bundle from "../assets/bundles/Bundle";
+import Log from "../Log";
+import Strings from "../utils/Strings";
 
 class CodeGenerator {
   private readonly scriptName: string;
@@ -17,20 +20,26 @@ class CodeGenerator {
   }
 
   private findTemplate(): string {
-    console.log("템플릿 코드 읽어들이는 중...");
-    console.time("읽어들이기 완료!");
-    const templatePath = path.join(__dirname, "./templates", this.templateName);
+    console.log(Bundle.commands.generate.template_reading.processing);
+    console.time(Bundle.commands.generate.template_reading.done);
+    const templatePath = path.join(
+      __dirname,
+      "../templates",
+      this.templateName
+    );
     if (!fs.existsSync(templatePath)) {
-      console.error(
-        `${chalk.red("[에러!]")} ./templates/${
-          this.templateName
-        }가 존재하지 않습니다.`
+      Log.error(
+        Strings.format(
+          Bundle.commands.generate.template_reading.error,
+          `../templates/${this.templateName}`
+        )
       );
+
       process.exit(0);
     }
     const code = fs.readFileSync(templatePath).toString();
 
-    console.timeEnd("읽어들이기 완료!");
+    console.timeEnd(Bundle.commands.generate.template_reading.done);
     return code;
   }
 
@@ -47,27 +56,44 @@ class CodeGenerator {
       const { confirm_overwrite } = await inquirer.prompt({
         type: "confirm",
         name: "confirm_overwrite",
-        message: `${chalk.hex("ffa500")(
-          "[경고!]"
-        )} 이미 해당 이름의 파일이 존재합니다. ${chalk.red(
-          "기존 파일을 덮어씌우시겠습니까?"
-        )}`,
+        message:
+          chalk.hex("ffa500")(`[${Bundle.global.warn}] `) +
+          Bundle.commands.generate.overwrite_confirm.exist +
+          " " +
+          chalk.red(Bundle.commands.generate.overwrite_confirm.confirm),
         default: false,
       });
       if (!confirm_overwrite) process.exit(0);
     }
 
-    console.log(`${this.outdir}/${this.scriptName}.js 생성 중...`);
-    console.time(`${this.scriptName}.js 생성 및 열람 완료!`);
+    console.log(
+      Strings.format(
+        Bundle.commands.generate.script_creating.processing,
+        `${this.outdir}/${this.scriptName}.js`
+      )
+    );
+    console.time(
+      Strings.format(
+        Bundle.commands.generate.script_creating.done,
+        `${this.scriptName}.js`
+      )
+    );
     fs.writeFileSync(codePath, templateCodes);
-    console.timeEnd(`${this.scriptName}.js 생성 및 열람 완료!`);
+    console.timeEnd(
+      Strings.format(
+        Bundle.commands.generate.script_creating.done,
+        `${this.scriptName}.js`
+      )
+    );
 
     childProcess
       .spawn("code", [codePath], { shell: true })
       .stderr.on("data", console.error);
     console.log(
-      `\n\u001b[36;1mtoolkit ${this.outdir}/${this.scriptName} -TC\u001b[0m 로 빠른 퀵테스트를 할 수 있습니다!` +
-        `\nhappy hacking :)`
+      Strings.format(
+        Bundle.commands.generate.quick_test_info,
+        chalk.cyan(`toolkit test ${this.outdir}/${this.scriptName} -TC`)
+      ) + `\nhappy hacking :)`
     );
     process.exit(0);
   }

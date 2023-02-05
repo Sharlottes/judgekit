@@ -3,6 +3,9 @@ import HJSON from "hjson";
 import path from "path";
 import childProcess from "child_process";
 import rl from "readline";
+import Bundle from "../assets/bundles/Bundle";
+import inquirer from "inquirer";
+import Strings from "../utils/Strings";
 
 const rlI = rl.createInterface(process.stdin, process.stdout);
 
@@ -25,7 +28,7 @@ class JudgeTester {
 
   public start() {
     console.log(
-      "    Node.js 백준 문제 테스터    ",
+      `    ${Bundle.commands.test.title}    `,
       "\n================================="
     );
 
@@ -69,23 +72,23 @@ class JudgeTester {
     const testCases = Array.from<string>(HJSON.parse(buffer.toString()));
 
     console.log(
-      `${testCases.length}개의 테스트 케이스 발견! 모두 동시에 실행됩니다...`
+      Strings.format(Bundle.commands.test.testcase_found, testCases.length)
     );
     await Promise.all(
       testCases.map((line) => this.forkProcess((handler) => handler(line)))
     );
-    await asyncQuestion(
-      "테스트 케이스를 계속 진행할까요? [Y,y / N,n] (기본 Y)"
-    ).then((res) => {
-      if (res.toUpperCase() == "N") this.testCaseMode = false;
+    const { confirm_testcase } = await inquirer.prompt({
+      type: "confirm",
+      name: "confirm_testcase",
+      message: Bundle.commands.test.testcase_continue,
+      default: true,
     });
+    this.testCaseMode = confirm_testcase;
   }
 
   private async runCode() {
     await this.forkProcess((handler) => rlI.once("line", (s) => handler(s)));
-    await asyncQuestion(
-      "아무 키를 누르세요... (테스트 케이스 계속하기: [T])"
-    ).then((res) => {
+    await asyncQuestion(Bundle.commands.test.test_continue).then((res) => {
       if (res.toUpperCase() == "T") this.testCaseMode = true;
     });
   }
