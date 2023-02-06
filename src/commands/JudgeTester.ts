@@ -4,10 +4,9 @@ import YAML from "yaml";
 import path from "path";
 import childProcess from "child_process";
 import rl from "readline";
-import Bundle from "../Bundle";
 import inquirer from "inquirer";
 import Strings from "../utils/Strings";
-import Config from "../Config";
+import { Bundle, Config } from "../core";
 
 const rlI = rl.createInterface(process.stdin, process.stdout);
 

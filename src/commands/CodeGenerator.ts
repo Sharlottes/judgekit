@@ -3,10 +3,8 @@ import path from "path";
 import chalk from "chalk";
 import inquirer from "inquirer";
 import childProcess from "child_process";
-import Bundle from "../Bundle";
-import Log from "../Log";
 import Strings from "../utils/Strings";
-import Config from "../Config";
+import { Bundle, Config, Log } from "../core";
 
 class CodeGenerator {
   private readonly scriptName: string;
