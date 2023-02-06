@@ -72,11 +72,9 @@ notice that `-tc` flag is _not_ valid. ~~yeah i know this is weird...~~
 the testcase file is designed for automatically input.
 you can see example format in [here](https://github.com/Sharlottes/judgekit/blob/master/examples/testcase.hjson)
 
-HJson is more humanatic json format than original Json format. you can see hjson format examples in [here](https://hjson.github.io/try.html)
+Test case can be three format - [json](https://en.wikipedia.org/wiki/JSON), [hjson](https://hjson.github.io/try.html), [yaml](https://en.wikipedia.org/wiki/YAML).
 
-first of all, the strongest benefit of hjson in this testcase's usage is **multiple line string avaliable**. so if code judge gives I/O examples, you can just copy and paste on this `testcase.hjson`.
-
-`testcase.hjson` is default file of TestCase. you can customize the name and use to `--testcase` flag's value. at least, `testcase.hjson` should be in CMD path (current terminal path).
+`testcase.hjson` is default file of TestCase. you can customize the name and use to `--testcase` flag's value. at least, it be in CMD path (current terminal path).
 
 ## Code Generation (WIP)
 
@@ -111,8 +109,9 @@ Judge Toolkit CLI accepts config file called `kitconfig.json`. config file shoul
 - [x] Internationalize Project
   - [x] support english CLI
   - [x] support korean README
-- [ ] support json/yaml testcase format too
+- [x] support json/yaml testcase format too
 - [ ] support pre-run input mapper scripts
-- [x] add some code generation templates
+- [ ] improve code generation
+  - [x] add some code generation templates
   - [ ] more built-in code templates and choose prompt
 - [ ] support test code(jest?)

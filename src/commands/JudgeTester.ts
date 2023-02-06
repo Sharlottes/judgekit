@@ -1,5 +1,6 @@
 import fs from "fs";
 import HJSON from "hjson";
+import YAML from "yaml";
 import path from "path";
 import childProcess from "child_process";
 import rl from "readline";
@@ -68,11 +69,21 @@ class JudgeTester {
     });
   }
 
-  private async runTestCase() {
+  private async parseTestCase(): Promise<string[]> {
     const buffer = fs.readFileSync(
       path.join(process.cwd(), Config.testcasePath)
     );
-    const testCases = Array.from<string>(HJSON.parse(buffer.toString()));
+    if (Config.testcasePath.endsWith(".hjson")) {
+      return Array.from<string>(HJSON.parse(buffer.toString()));
+    } else if (Config.testcasePath.endsWith(".json")) {
+      return Array.from<string>(JSON.parse(buffer.toString()));
+    } else if (Config.testcasePath.endsWith(".yaml")) {
+      return Array.from<string>(YAML.parse(buffer.toString()));
+    } else throw new Error("invalid testcase format!");
+  }
+
+  private async runTestCase() {
+    const testCases = await this.parseTestCase();
 
     console.log(
       Strings.format(

@@ -69,9 +69,7 @@ toolkit test <script[.js]> --testcase customHJSON.hjson
 테스트 케이스 파일은 자동 입력을 위해 고안되었습니다.
 예제는 [여기](https://github.com/Sharlottes/judgekit/blob/master/examples/testcase.hjson)를 참고하세요.
 
-HJson는 기존 Json 서식보다 더 인간친화적입니다. [여기](https://hjson.github.io/try.html)서 hjson 문법 예시를 볼 수 있습니다.
-
-이 테스트케이스 사용처에서 HJson의 가장 강력한 이점은 **여러 줄의 문자열 가능**입니다. 만약 문제가 I/O 예제를 준다면 `testcase.hjson`에 그냥 복붙만 해도 됩니다. ~~물론 서식에 맞게 바꿔야겠지만요~~
+테스트 케이스는 [json](https://ko.wikipedia.org/wiki/JSON), [hjson](https://hjson.github.io/try.html), [yaml](https://ko.wikipedia.org/wiki/YAML)로 총 세 가지 서식이 될 수 있습니다.
 
 `testcase.hjson`는 테스트 케이스의 기본 파일명입니다. `--testcase` 옵션을 통해 다른 이름의 테스트 케이스를 사용할 수 있습니다. `testcase.hjson`는 최소한 현재 실행 경로에 있어야 합니다.
 
