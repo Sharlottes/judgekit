@@ -91,12 +91,33 @@ toolkit generate 1000 -O examples
 
 ## 설정
 
-Judge Toolkit CLI 는 `kitconfig.json`로 설정 파일을 가져옵니다. 설정 파일은 현재 실행 디렉토리 위치에 있어야 합니다. 즉, `testcase.hjson`과 같은 위치에 있어야 합니다.
+Judge Toolkit CLI 는 `kitconfig.json`로 설정 파일을 가져옵니다.  
+설정 파일은 유저 디렉토리에 자동으로 생성됩니다. 프로젝트 루트 경로에 설정 파일이 있을 경우 CLI는 그걸 먼저 불러옵니다. 설정 파일은 CLI 설정과 옵션 케싱에 사용됩니다. `toolkit test 1000 -TC specialTestCase.json` 명령어로 예를 들자면, 설정은 이 옵션을 설정 파일에 기록할 것입니다. 그러므로 옵션을 설정하고 나면 그 옵션을 다시 사용할 필요가 없어집니다.
+
+```bash
+toolkit test 1000 -TC testcase.yaml
+toolkit test 1000 -TC
+```
+
+### format
+
+설정 파일은 아래 기본 설정과 동일합니다.
 
 ```json
 {
-  "currentLang": "ko"
+  "currentLang": "en",
+  "testcasePath": "testcase.hjson",
+  "templatePath": "readline_ex.js",
+  "generatePath": "src"
 }
 ```
 
-`currentLang` - CLI가 사용할 언어
+### 설정 명령어
+
+또한 일부 설정은 `toolkit config`로 설정할 수 있습니다.  
+현재 `currentLang` 설정만을 위해 사용할 수 있습니다.
+
+```bash
+toolkit config -L en
+toolkit config --lang ko
+```

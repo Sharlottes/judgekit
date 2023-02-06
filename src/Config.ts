@@ -3,14 +3,13 @@ import path from "path";
 import { homedir } from "os";
 
 interface ConfigData {
-  configPath: string;
   testcasePath?: string;
   templatePath?: string;
   generatePath?: string;
   currentLang?: Langs;
 }
 
-function findConfigData(): ConfigData {
+function findConfigData(): ConfigData & { configPath: string } {
   const userHomeDir = homedir();
   const localConfigPath = path.resolve(process.cwd(), "./kitconfig.json");
   if (fs.existsSync(localConfigPath))
@@ -38,7 +37,7 @@ class Config implements Required<ConfigData> {
   private _templatePath: string;
   private _generatePath: string;
 
-  constructor(data: ConfigData) {
+  constructor(data: ConfigData & { configPath: string }) {
     this.configPath = data.configPath;
     this._currentLang = data.currentLang ?? "en";
     this._testcasePath = data.testcasePath ?? "testcase.hjson";

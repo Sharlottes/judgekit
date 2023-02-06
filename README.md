@@ -94,15 +94,36 @@ toolkit generate 1000 -O examples
 
 ## Config
 
-Judge Toolkit CLI accepts config file called `kitconfig.json`. config file should be in current working directory, meaing it is in same path as `testcase.hjson`.
+Judge Toolkit CLI accepts config file called `kitconfig.json`.  
+the config file will be automatically generated in user's home directory - also if there is config file in project root, cli will load it. the config file is used for some CLI config or option cache. for example with `toolkit test 1000 -TC specialTestCase.json` command, the Config will write this in config file. so after setting options, you don't need to call twice. like
+
+```bash
+toolkit test 1000 -TC testcase.yaml
+toolkit test 1000 -TC
+```
+
+### format
+
+the config file is same as below default configs.
 
 ```json
 {
-  "currentLang": "ko"
+  "currentLang": "en",
+  "testcasePath": "testcase.hjson",
+  "templatePath": "readline_ex.js",
+  "generatePath": "src"
 }
 ```
 
-`currentLang` - the language that CLI uses
+### Config Command
+
+also for some config you can set it by `toolkit config`.  
+currently you can use it only for `currentLang` config.
+
+```bash
+toolkit config -L en
+toolkit config --lang ko
+```
 
 # TODO
 
