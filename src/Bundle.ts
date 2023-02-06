@@ -1,13 +1,13 @@
 import fs from "fs";
 import YAML from "yaml";
 import path from "path";
-import { config } from "./Vars";
+import Config from "./Config";
 
 class Bundle {
   public readonly langs: Langs[] = ["en", "ko"];
   public readonly bundles: Record<Langs, BundleData>;
   public get current(): BundleData {
-    return this.bundles[config.currentLang];
+    return this.bundles[Config.currentLang];
   }
 
   constructor() {
@@ -15,7 +15,7 @@ class Bundle {
       YAML.parse(
         fs.readFileSync(
           path.join(
-            config.PROJECT_DIR,
+            Config.projectPath,
             "/assets",
             "/bundles",
             `bundle_${lang}.yaml`

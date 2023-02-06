@@ -6,6 +6,7 @@ import rl from "readline";
 import Bundle from "../Bundle";
 import inquirer from "inquirer";
 import Strings from "../utils/Strings";
+import Config from "../Config";
 
 const rlI = rl.createInterface(process.stdin, process.stdout);
 
@@ -14,15 +15,15 @@ const asyncQuestion = async (query: string) =>
 
 class JudgeTester {
   private testCaseMode: boolean;
-  private readonly testCasePath: string;
   private readonly codePath: string;
 
   constructor(codePath: string, options: Record<string, any>) {
     this.codePath = codePath;
-    this.testCasePath =
+    Config.testcasePath =
       options.testcase === true || options.testcase === undefined
-        ? "testcase.hjson"
+        ? Config.testcasePath
         : options.testcase;
+
     this.testCaseMode = options.testcase !== undefined;
   }
 
@@ -68,7 +69,9 @@ class JudgeTester {
   }
 
   private async runTestCase() {
-    const buffer = fs.readFileSync(path.join(process.cwd(), this.testCasePath));
+    const buffer = fs.readFileSync(
+      path.join(process.cwd(), Config.testcasePath)
+    );
     const testCases = Array.from<string>(HJSON.parse(buffer.toString()));
 
     console.log(

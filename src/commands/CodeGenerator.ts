@@ -6,16 +6,15 @@ import childProcess from "child_process";
 import Bundle from "../Bundle";
 import Log from "../Log";
 import Strings from "../utils/Strings";
+import Config from "../Config";
 
 class CodeGenerator {
   private readonly scriptName: string;
-  private readonly templateName: string;
-  private readonly outdir: string;
 
   constructor(scriptName: string, templateName: string, outdir: string) {
     this.scriptName = scriptName;
-    this.outdir = outdir;
-    this.templateName =
+    Config.generatePath = outdir;
+    Config.templatePath =
       templateName + (templateName.endsWith(".js") ? "" : ".js");
   }
 
@@ -25,13 +24,13 @@ class CodeGenerator {
     const templatePath = path.join(
       __dirname,
       "../templates",
-      this.templateName
+      Config.templatePath
     );
     if (!fs.existsSync(templatePath)) {
       Log.error(
         Strings.format(
           Bundle.current.commands.generate.template_reading.error,
-          `../templates/${this.templateName}`
+          `../templates/${Config.templatePath}`
         )
       );
 
@@ -48,7 +47,7 @@ class CodeGenerator {
 
     const codePath = path.join(
       process.cwd(),
-      this.outdir,
+      Config.generatePath,
       `/${this.scriptName}.js`
     );
 
@@ -69,7 +68,7 @@ class CodeGenerator {
     console.log(
       Strings.format(
         Bundle.current.commands.generate.script_creating.processing,
-        `${this.outdir}/${this.scriptName}.js`
+        `${Config.generatePath}/${this.scriptName}.js`
       )
     );
     console.time(
@@ -92,7 +91,7 @@ class CodeGenerator {
     console.log(
       Strings.format(
         Bundle.current.commands.generate.quick_test_info,
-        chalk.cyan(`toolkit test ${this.outdir}/${this.scriptName} -TC`)
+        chalk.cyan(`toolkit test ${Config.generatePath}/${this.scriptName} -TC`)
       ) + `\nhappy hacking :)`
     );
     process.exit(0);
