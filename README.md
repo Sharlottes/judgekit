@@ -12,15 +12,13 @@
 
 </div>
 
-the CLI node module for code judge quick testing.
+the CLI node module for JS code judge quick testing.
 
-Judge Toolkit is made for easy code generation and quick code testing.
-in this modules, everytime you test code, new node process is created for running given script file.
-so you don't need to touch something in terminal for testing after changing script file. just press enter key in termial!
+Judge Toolkit is made for easy code generation and quick code testing. With this module, every time you test code a new node process is created for running the given script file. You don't need to change any configuration after editing the script file while testing - just press the enter key in the termial!
 
 > **notice**  
 > this modules is based on [my tester.js gist](https://gist.github.com/Sharlottes/b2332b88695d11686dab5b9248c433da).
-> most things in there are same in here too, but it's not bad choice to see the gist.
+> most things in there are same in here too, but it's not a bad choice to see the gist.
 
 # Installation
 
