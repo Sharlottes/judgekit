@@ -36,6 +36,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: built-package
+      - name: Remove artifact
         uses: GeekyEggo/delete-artifact@v2.0.0
 
       - name: SetUp Node.js 16v
