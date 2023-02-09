@@ -5,11 +5,8 @@ on:
     types: [created]
 
 jobs:
-  publish-npm:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: CheckOut
         uses: actions/checkout@v3
@@ -18,11 +15,34 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16.x"
-          registry-url: "https://registry.npmjs.org"
-          always-auth: true
 
       - name: Build
         run: npm ci && npm run build && cd dist
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-package
+          path: dist
+
+  publish-npm:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Download a built package
+        uses: actions/download-artifact@v3
+        with:
+          name: built-package
+
+      - name: SetUp Node.js 16v
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+          always-auth: true
 
       - name: Publish to NPM
         run: npm publish
