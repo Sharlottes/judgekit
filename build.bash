@@ -7,6 +7,6 @@ do
   if [ -d $file ]; then
     cp -r $file dist
   else
-    xcopy $file dist
+    cp $file dist
   fi
 done
