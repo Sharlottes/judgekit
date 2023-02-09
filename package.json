@@ -8,7 +8,8 @@
   "scripts": {
     "start": "babel-node -x \".ts\" src/index.ts",
     "dev": "npm run build && node dist",
-    "build": "bash build.bash && babel dist --out-dir dist --ignore \"dist/templates/**/*.js\""
+    "typecheck": "tsc --noemit",
+    "build": "rm -rf dist && tsc && babel dist --out-dir dist --ignore \"dist/templates/**/*.js\""
   },
   "author": "sharlottes",
   "license": "MIT",
