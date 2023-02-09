@@ -20,15 +20,15 @@ class CodeGenerator {
     console.log(Bundle.current.commands.generate.template_reading.processing);
     console.time(Bundle.current.commands.generate.template_reading.done);
     const templatePath = path.join(
-      __dirname,
-      "../templates",
+      Config.projectPath,
+      "templates",
       Config.templatePath
     );
     if (!fs.existsSync(templatePath)) {
       Log.error(
         Strings.format(
           Bundle.current.commands.generate.template_reading.error,
-          `../templates/${Config.templatePath}`
+          `templates/${Config.templatePath}`
         )
       );
 

@@ -6,7 +6,6 @@
     "lib": ["ES2022"],
     "outDir": "dist",
     "strict": true,
-    "allowJs": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
     "skipLibCheck": true,
