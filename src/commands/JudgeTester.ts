@@ -18,7 +18,7 @@ class JudgeTester {
   private readonly codePath: string;
 
   constructor(codePath: string, options: Record<string, any>) {
-    this.codePath = path.join(process.env.INIT_CWD ?? "", codePath);
+    this.codePath = path.join(Config.terminalPath, codePath);
     this.codePath += codePath.endsWith(".js") ? "" : ".js";
     if (!fs.existsSync(this.codePath)) {
       const errorMsg = Strings.format(
@@ -29,10 +29,15 @@ class JudgeTester {
       throw new Error(errorMsg);
     }
 
-    Config.testcasePath =
-      options.testcase === true || options.testcase === undefined
-        ? Config.testcasePath
-        : options.testcase;
+    Config.updateConfig(
+      "testcasePath",
+      path.join(
+        Config.terminalPath,
+        options.testcase === true || options.testcase === undefined
+          ? Config.testcasePath
+          : options.testcase
+      )
+    );
 
     this.testCaseMode = options.testcase !== undefined;
   }
@@ -79,9 +84,8 @@ class JudgeTester {
   }
 
   private async parseTestCase(): Promise<string[]> {
-    const buffer = fs.readFileSync(
-      path.join(process.cwd(), Config.testcasePath)
-    );
+    console.log(Config.testcasePath);
+    const buffer = fs.readFileSync(Config.testcasePath);
     if (Config.testcasePath.endsWith(".hjson")) {
       return Array.from<string>(HJSON.parse(buffer.toString()));
     } else if (Config.testcasePath.endsWith(".json")) {

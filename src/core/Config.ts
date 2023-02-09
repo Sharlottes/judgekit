@@ -9,7 +9,7 @@ interface ConfigData {
   currentLang?: Langs;
 }
 
-function findConfigData(): ConfigData & { configPath: string } {
+function findConfigData() {
   const userHomeDir = homedir();
   const localConfigPath = path.resolve(process.cwd(), "./kitconfig.json");
   if (fs.existsSync(localConfigPath))
@@ -30,64 +30,94 @@ function findConfigData(): ConfigData & { configPath: string } {
 }
 
 class Config implements Required<ConfigData> {
-  public readonly projectPath = path.resolve(__dirname, "..");
+  public readonly currentLang: Langs;
+
+  public readonly projectPath: string;
+  public readonly terminalPath: string;
   public readonly configPath: string;
-  private _currentLang: Langs;
-  private _testcasePath: string;
-  private _templatePath: string;
-  private _generatePath: string;
+  public readonly testcasePath: string;
+  public readonly templatePath: string;
+  public readonly generatePath: string;
 
   constructor(data: ConfigData & { configPath: string }) {
+    if (!process.env.INIT_CWD) throw new Error("this is only for Command Line");
+    this.projectPath = path.resolve(__dirname, "..", "..");
+    this.terminalPath = process.env.INIT_CWD;
     this.configPath = data.configPath;
-    this._currentLang = data.currentLang ?? "en";
-    this._testcasePath = data.testcasePath ?? "testcase.hjson";
-    this._templatePath = data.templatePath ?? "readline_ex.js";
-    this._generatePath = data.generatePath ?? "src";
-  }
 
-  get testcasePath() {
-    return this._testcasePath;
-  }
-  set testcasePath(value: string) {
-    this._testcasePath = value;
-    if (this._testcasePath != value)
-      this.updateConfigFile({ testcasePath: value });
-  }
-  get currentLang() {
-    return this._currentLang;
-  }
-  set currentLang(value: Langs) {
-    this._currentLang = value;
-    if (this._currentLang != value)
-      this.updateConfigFile({ currentLang: value });
-  }
-  get templatePath() {
-    return this._templatePath;
-  }
-  set templatePath(value: string) {
-    this._templatePath = value;
-    if (this._templatePath != value)
-      this.updateConfigFile({ templatePath: value });
-  }
-  get generatePath() {
-    return this._generatePath;
-  }
-  set generatePath(value: string) {
-    this._generatePath = value;
-    if (this._generatePath != value)
-      this.updateConfigFile({ generatePath: value });
-  }
+    this.currentLang = data.currentLang || "en";
 
-  private async updateConfigFile(data: Partial<ConfigData>) {
-    const config = {
-      ...data,
-      ...(await new Promise<Buffer>((res) =>
-        fs.readFile(this.configPath, {}, (_, buffer) => res(buffer))
-      ).then((buffer) => JSON.parse(buffer.toString()))),
-    };
-    await new Promise<void>((res) =>
-      fs.writeFile(this.configPath, JSON.stringify(config), {}, () => res())
+    this.testcasePath = this.validatePath(
+      data.testcasePath,
+      "local",
+      path.join(this.terminalPath, "testcase.hjson")
     );
+    this.templatePath = this.validatePath(
+      data.templatePath,
+      "project",
+      path.join(this.projectPath, "templates", "readline_ex.js")
+    );
+    this.generatePath = this.validatePath(
+      data.generatePath,
+      "local",
+      path.join(this.terminalPath, "src")
+    );
+  }
+
+  /**
+   *
+   * @param type
+   * local - user's local path.
+   * project - this(judgekit) project's local path.
+   */
+  private validatePath(
+    fileName: string | undefined,
+    type: "local" | "project",
+    defaultPath?: string
+  ): string {
+    const dir = type === "local" ? this.terminalPath : this.projectPath;
+    if (fileName && fs.existsSync(path.join(dir, fileName)))
+      return path.join(dir, fileName);
+    else if (defaultPath) return path.join(dir, defaultPath);
+    else return "";
+  }
+
+  /**
+   * @returns is given value is not difference current value
+   */
+  private validateValue<K extends keyof typeof this>(
+    key: K,
+    value: typeof this[K]
+  ): boolean {
+    if (this[key] == value) return true;
+    this[key] = value;
+    return false;
+  }
+
+  public updateConfigs<K extends keyof Required<ConfigData>>(
+    data: Record<K, Required<ConfigData>[K]>
+  ) {
+    let originData: ConfigData | null = null;
+    for (const [key, value] of Object.entries<Required<ConfigData>[K]>(data)) {
+      if (this.validateValue(key as keyof this, value as this[keyof this]))
+        continue;
+      if (!originData)
+        originData = JSON.parse(fs.readFileSync(this.configPath).toString());
+      if (originData) originData[key as K] = value;
+    }
+    if (originData)
+      fs.writeFileSync(this.configPath, JSON.stringify(originData));
+  }
+
+  public updateConfig<K extends keyof Required<ConfigData>>(
+    key: K,
+    value: Required<ConfigData>[K]
+  ) {
+    if (this.validateValue(key, value as this[keyof this])) return this;
+    const originData = JSON.parse(fs.readFileSync(this.configPath).toString());
+    originData[key] = value;
+    fs.writeFileSync(this.configPath, JSON.stringify(originData));
+    return this;
   }
 }
 

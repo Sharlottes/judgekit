@@ -11,24 +11,25 @@ class CodeGenerator {
 
   constructor(scriptName: string, templateName: string, outdir: string) {
     this.scriptName = scriptName;
-    Config.generatePath = outdir;
-    Config.templatePath =
-      templateName + (templateName.endsWith(".js") ? "" : ".js");
+    Config.updateConfigs({
+      generatePath: path.join(Config.terminalPath, outdir),
+      templatePath: path.join(
+        Config.terminalPath,
+        Config.testcasePath,
+        templateName + (templateName.endsWith(".js") ? "" : ".js")
+      ),
+    });
   }
 
   private findTemplate(): string {
     console.log(Bundle.current.commands.generate.template_reading.processing);
     console.time(Bundle.current.commands.generate.template_reading.done);
-    const templatePath = path.join(
-      Config.projectPath,
-      "templates",
-      Config.templatePath
-    );
+    const templatePath = Config.templatePath;
     if (!fs.existsSync(templatePath)) {
       Log.error(
         Strings.format(
           Bundle.current.commands.generate.template_reading.error,
-          `templates/${Config.templatePath}`
+          Config.templatePath
         )
       );
 
@@ -43,11 +44,7 @@ class CodeGenerator {
   public async start(): Promise<void> {
     const templateCodes = this.findTemplate();
 
-    const codePath = path.join(
-      process.cwd(),
-      Config.generatePath,
-      `/${this.scriptName}.js`
-    );
+    const codePath = path.join(Config.generatePath, `/${this.scriptName}.js`);
 
     if (fs.existsSync(codePath)) {
       const { confirm_overwrite } = await inquirer.prompt({
