@@ -6,7 +6,7 @@ import childProcess from "child_process";
 import rl from "readline";
 import inquirer from "inquirer";
 import Strings from "../utils/Strings";
-import { Bundle, Config } from "../core";
+import { Bundle, Config, Log } from "../core";
 
 const rlI = rl.createInterface(process.stdin, process.stdout);
 
@@ -18,7 +18,17 @@ class JudgeTester {
   private readonly codePath: string;
 
   constructor(codePath: string, options: Record<string, any>) {
-    this.codePath = codePath;
+    this.codePath = path.join(process.env.INIT_CWD ?? "", codePath);
+    this.codePath += codePath.endsWith(".js") ? "" : ".js";
+    if (!fs.existsSync(this.codePath)) {
+      const errorMsg = Strings.format(
+        Bundle.current.commands.test.error_script_notfound,
+        this.codePath
+      );
+      Log.error(errorMsg);
+      throw new Error(errorMsg);
+    }
+
     Config.testcasePath =
       options.testcase === true || options.testcase === undefined
         ? Config.testcasePath

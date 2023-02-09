@@ -3,7 +3,11 @@ interface BundleData {
   global: Record<"error" | "warn" | "info", string>;
   commands: {
     test: Record<
-      "title" | "testcase_found" | "testcase_continue" | "test_continue",
+      | "title"
+      | "testcase_found"
+      | "testcase_continue"
+      | "test_continue"
+      | "error_script_notfound",
       string
     >;
     generate: {

@@ -8,6 +8,7 @@ commands:
     testcase_found: "{0}개의 테스트 케이스 발견! 모두 동시에 실행됩니다..."
     testcase_continue: "테스트 케이스를 계속 진행할까요?"
     test_continue: "아무 키를 누르세요... (테스트 케이스 계속하기: [T])"
+    error_script_notfound: "{0} 스크립트 파일을 찾을 수 없습니다!"
   generate:
     template_reading:
       processing: "템플릿 코드 읽어들이는 중..."
