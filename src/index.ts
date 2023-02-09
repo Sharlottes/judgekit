@@ -14,7 +14,7 @@ program
   .command("config")
   .option("-L, --lang [en|ko]", "the language that cli uses", "en")
   .action((options) => {
-    Config.currentLang = options.lang;
+    Config.updateConfig("currentLang", options.lang);
   });
 
 program
