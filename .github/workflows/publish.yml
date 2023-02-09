@@ -13,21 +13,21 @@ jobs:
     steps:
       - name: CheckOut
         uses: actions/checkout@v3
-        
+
       - name: SetUp Node.js 16v
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
           always-auth: true
-          
+
       - name: Build
-        run: npm ci && npm run build
-      
+        run: npm ci && npm run build && cd dist
+
       - name: Publish to NPM
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          
-      - name: Check NPM Info 
+
+      - name: Check NPM Info
         run: npm info judge-toolkit
