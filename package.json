@@ -1,9 +1,9 @@
 {
   "name": "judge-toolkit",
-  "version": "0.0.6-hotfix2",
+  "version": "0.0.6-hotfix3",
   "description": "various of toolCLI for code judge, exam, test, etc.",
   "bin": {
-    "toolkit": "node index.js"
+    "toolkit": "dist/index.js"
   },
   "scripts": {
     "start": "babel-node -x \".ts\" src/index.ts",
