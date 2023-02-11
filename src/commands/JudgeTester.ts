@@ -18,9 +18,8 @@ class JudgeTester {
   private readonly codePath: string;
 
   constructor(codePath: string, options: Record<string, any>) {
-    this.codePath = path.join(Config.terminalPath, codePath);
-    console.log(Config.terminalPath, fs.existsSync(Config.terminalPath))
-    this.codePath += codePath.endsWith(".js") ? "" : ".js";
+    this.codePath = path.resolve(Config.terminalPath, codePath) + (codePath.endsWith(".js") ? "" : ".js");
+    
     if (!fs.existsSync(this.codePath)) {
       const errorMsg = Strings.format(
         Bundle.current.commands.test.error_script_notfound,

@@ -14,7 +14,7 @@ class CodeGenerator {
     Config.updateConfigs({
       generatePath: path.join(Config.terminalPath, outdir),
       templatePath: path.join(
-        Config.terminalPath,
+        Config.projectPath,
         templateName + (templateName.endsWith(".js") ? "" : ".js")
       ),
     });

@@ -42,7 +42,7 @@ class Config implements Required<ConfigData> {
   constructor(data: ConfigData & { configPath: string }) {
     if (!process.env.PWD) throw new Error("this is only for Command Line");
     this.projectPath = path.resolve(__dirname, "..", "..");
-    this.terminalPath = process.env.PWD;
+    this.terminalPath = path.resolve(process.env.PWD.slice(2));
     this.configPath = data.configPath;
 
     this.currentLang = data.currentLang || "en";
