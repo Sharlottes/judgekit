@@ -8,7 +8,7 @@
 [![Node.js Package](https://github.com/Sharlottes/judgekit/actions/workflows/publish.yml/badge.svg)](https://github.com/Sharlottes/judgekit/actions/workflows/publish.yml)
 [![Discord](https://img.shields.io/badge/Sharlotte%230018-7289DA?logo=discord&logoColor=white&style=flat-square)](https://discordapp.com/users/473072758629203980)
 
-\- [한국어](https://github.com/Sharlottes/judgekit/blob/master/readmes/README_ko.md) \-
+\- [한국어](https://github.com/Sharlottes/judgekit/blob/master/doc/readmes/README_ko.md) \-
 
 </div>
 
