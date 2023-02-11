@@ -40,8 +40,8 @@ program
   )
   .argument(
     "[template_name]",
-    "the template name to copy. default: readline_ex.js",
-    "readline_ex.js"
+    "the template name to copy. default: templates/readline_ex.js",
+    "templates/readline_ex.js"
   )
   .option(
     "-O, --outdir [out directory]",

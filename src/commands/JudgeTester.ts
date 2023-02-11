@@ -19,6 +19,7 @@ class JudgeTester {
 
   constructor(codePath: string, options: Record<string, any>) {
     this.codePath = path.join(Config.terminalPath, codePath);
+    console.log(Config.terminalPath, fs.existsSync(Config.terminalPath))
     this.codePath += codePath.endsWith(".js") ? "" : ".js";
     if (!fs.existsSync(this.codePath)) {
       const errorMsg = Strings.format(
@@ -31,12 +32,9 @@ class JudgeTester {
 
     Config.updateConfig(
       "testcasePath",
-      path.join(
-        Config.terminalPath,
         options.testcase === true || options.testcase === undefined
           ? Config.testcasePath
-          : options.testcase
-      )
+          : path.join(Config.terminalPath, options.testcase)
     );
 
     this.testCaseMode = options.testcase !== undefined;

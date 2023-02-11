@@ -15,7 +15,6 @@ class CodeGenerator {
       generatePath: path.join(Config.terminalPath, outdir),
       templatePath: path.join(
         Config.terminalPath,
-        Config.testcasePath,
         templateName + (templateName.endsWith(".js") ? "" : ".js")
       ),
     });

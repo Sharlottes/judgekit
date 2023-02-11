@@ -50,17 +50,17 @@ class Config implements Required<ConfigData> {
     this.testcasePath = this.validatePath(
       data.testcasePath,
       "local",
-      path.join(this.terminalPath, "testcase.hjson")
+      path.join(this.terminalPath, "./testcase.hjson")
     );
     this.templatePath = this.validatePath(
       data.templatePath,
       "project",
-      path.join(this.projectPath, "templates", "readline_ex.js")
+      path.join(this.projectPath, "./templates", "./readline_ex.js")
     );
     this.generatePath = this.validatePath(
       data.generatePath,
       "local",
-      path.join(this.terminalPath, "src")
+      path.join(this.terminalPath, "./src")
     );
   }
 
@@ -73,13 +73,12 @@ class Config implements Required<ConfigData> {
   private validatePath(
     fileName: string | undefined,
     type: "local" | "project",
-    defaultPath?: string
+    defaultPath: string
   ): string {
     const dir = type === "local" ? this.terminalPath : this.projectPath;
     if (fileName && fs.existsSync(path.join(dir, fileName)))
       return path.join(dir, fileName);
-    else if (defaultPath) return path.join(dir, defaultPath);
-    else return "";
+    else return defaultPath;
   }
 
   /**
