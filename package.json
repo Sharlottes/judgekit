@@ -8,6 +8,8 @@
   "scripts": {
     "start": "babel-node -x \".ts\" src/index.ts",
     "dev": "npm run build && node dist",
+    "testTest": "npm run build && cd .. && node judgekit/dist test judgekit/doc/examples/234",
+    "testGenerate": "npm run build && cd .. && node judgekit/dist generate 234 -O judgekit/doc/examples",
     "typecheck": "tsc --noemit",
     "build": "rm -rf dist && tsc && babel dist --out-dir dist --ignore \"dist/templates/**/*.js\""
   },
