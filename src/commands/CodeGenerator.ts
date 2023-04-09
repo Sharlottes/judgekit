@@ -7,17 +7,39 @@ import Strings from "../utils/Strings";
 import { Bundle, Config, Log } from "../core";
 
 class CodeGenerator {
-  private readonly scriptName: string;
+  constructor(
+    private readonly scriptName: string,
+    private readonly templateName: string,
+    private readonly outdir: string
+  ) {}
 
-  constructor(scriptName: string, templateName: string, outdir: string) {
-    this.scriptName = scriptName;
+  async init(): Promise<CodeGenerator> {
+    const generatePath = fs.existsSync(
+      path.join(Config.terminalPath, this.outdir)
+    )
+      ? path.join(Config.terminalPath, this.outdir)
+      : await Promise.reject(
+          inquirer.prompt([
+            {
+              type: "fuzzypath",
+              name: "path",
+              itemType: "directory",
+              rootPath: Config.terminalPath,
+              message:
+                "cannot find out dir, Select a target directory to add file",
+            },
+          ])
+        );
+
     Config.updateConfigs({
-      generatePath: path.join(Config.terminalPath, outdir),
+      generatePath,
       templatePath: path.join(
         Config.projectPath,
-        templateName + (templateName.endsWith(".js") ? "" : ".js")
+        this.templateName + (this.templateName.endsWith(".js") ? "" : ".js")
       ),
     });
+
+    return this;
   }
 
   private findTemplate(): string {

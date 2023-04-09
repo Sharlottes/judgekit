@@ -20,14 +20,17 @@
     "commander": "^10.0.0",
     "hjson": "^3.2.2",
     "inquirer": "^8.2.5",
+    "inquirer-fuzzy-path": "^2.3.0",
     "yaml": "^2.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
     "@babel/node": "^7.20.7",
     "@babel/plugin-transform-modules-commonjs": "^7.20.11",
-    "@babel/preset-typescript": "^7.18.6",
     "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/commander": "^2.12.2",
     "@types/hjson": "latest",
     "@types/inquirer": "^9.0.3",
     "@types/node": "latest",

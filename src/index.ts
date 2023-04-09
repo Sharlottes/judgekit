@@ -4,6 +4,9 @@ import { program } from "commander";
 import JudgeTester from "./commands/JudgeTester";
 import CodeGenerator from "./commands/CodeGenerator";
 import Config from "./core/Config";
+import inquirer from "inquirer";
+
+inquirer.registerPrompt("fuzzypath", require("inquirer-fuzzy-path"));
 
 program
   .version("0.0.6")
@@ -38,8 +41,8 @@ program
     "<script_name>",
     "the script name to generate. you don't need to type `.js` extension"
   )
-  .argument(
-    "[template_name]",
+  .option(
+    "-T, --template [template_name]",
     "the template name to copy. default: templates/readline_ex.js",
     "templates/readline_ex.js"
   )
@@ -48,8 +51,9 @@ program
     "output directory for generated script",
     "src"
   )
-  .action(
-    (scriptName: string, templateName: string, options: Record<string, any>) =>
-      new CodeGenerator(scriptName, templateName, options.outdir).start()
+  .action((scriptName: string, options: Record<string, any>) =>
+    new CodeGenerator(scriptName, options.template, options.outdir.toString())
+      .init()
+      .then((cg) => cg.start())
   );
 program.parse(process.argv);
