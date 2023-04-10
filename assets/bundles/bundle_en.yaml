@@ -2,6 +2,8 @@ global:
   error: "ERROR"
   warn: "WARN"
   info: "INFO"
+  pathfinder:
+    path_notfound: "cannot find {0}, Please select another path."
 commands:
   test:
     title: "    Node.js Judge Tester    "

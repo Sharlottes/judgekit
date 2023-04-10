@@ -1,6 +1,8 @@
 type Langs = "en" | "ko";
 interface BundleData {
-  global: Record<"error" | "warn" | "info", string>;
+  global: Record<"error" | "warn" | "info", string> & {
+    pathfinder: Record<"path_notfound", string>;
+  };
   commands: {
     test: Record<
       | "title"

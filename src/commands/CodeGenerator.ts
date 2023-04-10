@@ -4,67 +4,47 @@ import chalk from "chalk";
 import inquirer from "inquirer";
 import childProcess from "child_process";
 import Strings from "../utils/Strings";
-import { Bundle, Config, Log } from "../core";
+import { Bundle, Config } from "../core";
+import PathFinder from "../core/PathFinder";
 
-class CodeGenerator {
-  constructor(
-    private readonly scriptName: string,
-    private readonly templateName: string,
-    private readonly outdir: string
-  ) {}
-
-  async init(): Promise<CodeGenerator> {
-    const generatePath = fs.existsSync(
-      path.join(Config.terminalPath, this.outdir)
-    )
-      ? path.join(Config.terminalPath, this.outdir)
-      : await Promise.reject(
-          inquirer.prompt([
-            {
-              type: "fuzzypath",
-              name: "path",
-              itemType: "directory",
-              rootPath: Config.terminalPath,
-              message:
-                "cannot find out dir, Select a target directory to add file",
-            },
-          ])
-        );
+export class CodeGeneratorInitor {
+  public static async init(
+    scriptName: string,
+    templateName: string,
+    outdir: string
+  ): Promise<CodeGenerator> {
+    const generatePath = await PathFinder.find(outdir, "PWD", {
+      isFile: false,
+    });
+    const templatePath = await PathFinder.find(
+      templateName + (templateName.endsWith(".js") ? "" : ".js"),
+      "Judgekit",
+      {
+        excludePath: (path) => !path.endsWith(".js"),
+      }
+    );
 
     Config.updateConfigs({
       generatePath,
-      templatePath: path.join(
-        Config.projectPath,
-        this.templateName + (this.templateName.endsWith(".js") ? "" : ".js")
-      ),
+      templatePath,
     });
 
-    return this;
+    return new CodeGenerator(scriptName);
   }
+}
+
+class CodeGenerator {
+  constructor(private readonly scriptName: string) {}
 
   private findTemplate(): string {
     console.log(Bundle.current.commands.generate.template_reading.processing);
     console.time(Bundle.current.commands.generate.template_reading.done);
-    const templatePath = Config.templatePath;
-    if (!fs.existsSync(templatePath)) {
-      Log.error(
-        Strings.format(
-          Bundle.current.commands.generate.template_reading.error,
-          Config.templatePath
-        )
-      );
-
-      process.exit(0);
-    }
-    const code = fs.readFileSync(templatePath).toString();
-
+    const code = fs.readFileSync(Config.templatePath).toString();
     console.timeEnd(Bundle.current.commands.generate.template_reading.done);
     return code;
   }
 
   public async start(): Promise<void> {
-    const templateCodes = this.findTemplate();
-
     const codePath = path.join(Config.generatePath, `/${this.scriptName}.js`);
 
     if (fs.existsSync(codePath)) {
@@ -84,7 +64,7 @@ class CodeGenerator {
     console.log(
       Strings.format(
         Bundle.current.commands.generate.script_creating.processing,
-        `${Config.generatePath}/${this.scriptName}.js`
+        `${this.scriptName}.js`
       )
     );
     console.time(
@@ -94,7 +74,7 @@ class CodeGenerator {
       )
     );
     await new Promise((resolve) =>
-      fs.writeFile(codePath, templateCodes, () =>
+      fs.writeFile(codePath, this.findTemplate(), () =>
         childProcess
           .spawn("code", ["-r", path.resolve(codePath)], { shell: true })
           .on("exit", resolve)

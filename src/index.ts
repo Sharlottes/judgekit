@@ -2,9 +2,12 @@
 
 import { program } from "commander";
 import JudgeTester from "./commands/JudgeTester";
-import CodeGenerator from "./commands/CodeGenerator";
+import { CodeGeneratorInitor } from "./commands/CodeGenerator";
 import Config from "./core/Config";
 import inquirer from "inquirer";
+
+const withDefaultOption = <T>(value: any, defaultValue: T) =>
+  value.toString() === "true" ? defaultValue : value ?? defaultValue;
 
 inquirer.registerPrompt("fuzzypath", require("inquirer-fuzzy-path"));
 
@@ -52,8 +55,10 @@ program
     "src"
   )
   .action((scriptName: string, options: Record<string, any>) =>
-    new CodeGenerator(scriptName, options.template, options.outdir.toString())
-      .init()
-      .then((cg) => cg.start())
+    CodeGeneratorInitor.init(
+      scriptName,
+      withDefaultOption(options.template, "template_path"),
+      withDefaultOption(options.outdir, "outdir_path")
+    ).then((cg) => cg.start())
   );
 program.parse(process.argv);
