@@ -93,7 +93,13 @@ class CodeGenerator {
         `${this.scriptName}.js`
       )
     );
-    fs.writeFileSync(codePath, templateCodes);
+    await new Promise((resolve) =>
+      fs.writeFile(codePath, templateCodes, () =>
+        childProcess
+          .spawn("code", ["-r", path.resolve(codePath)], { shell: true })
+          .on("exit", resolve)
+      )
+    );
     console.timeEnd(
       Strings.format(
         Bundle.current.commands.generate.script_creating.done,
@@ -101,9 +107,6 @@ class CodeGenerator {
       )
     );
 
-    childProcess
-      .spawn("code", [codePath], { shell: true })
-      .stderr.on("data", console.error);
     console.log(
       Strings.format(
         Bundle.current.commands.generate.quick_test_info,
