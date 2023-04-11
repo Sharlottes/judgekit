@@ -15,8 +15,14 @@ jobs:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Install Packages
+      - name: Install Node.js Packages
         run: yarn
 
-      - name: Test
+      - name: Test by Jest
         run: yarn test
+
+      - name: Archive jest code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: coverage/lcov-report
