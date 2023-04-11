@@ -2,8 +2,9 @@
 node_modules/
 doc/
 src/
-.babelrc
 .gitignore
 .npmignore
+.swcrc
+@types
 package-lock.json
 tsconfig.json

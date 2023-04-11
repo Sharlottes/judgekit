@@ -38,7 +38,7 @@
     "type": "git",
     "url": "https://github.com/sharlottes/judgekit.git"
   },
-  "homepage": "https://github.com/sharlottes/judgekit.git",
+  "homepage": "https://github.com/sharlottes/judgekit#readme",
   "keywords": [
     "typescript",
     "node",
