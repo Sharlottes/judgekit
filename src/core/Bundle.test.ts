@@ -1,43 +1,61 @@
+import { Document, isMap } from "yaml";
+import type { Pair, Scalar, YAMLMap } from "yaml";
+import type { Collection } from "yaml/dist/nodes/Collection";
 import Bundle from "./Bundle";
+import chalk from "chalk";
 
 describe("test Bundle core", () => {
-  const standardBundle = Bundle.readBundlefile("en");
+  const standardBundle = new Document(Bundle.readBundlefile("en"));
+
   for (const lang of Bundle.langs.slice(1)) {
-    describe(`finding undefined property in ${lang} bundle`, () => {
-      const data = findUndefinedInBundle(Bundle.readBundlefile(lang));
+    describe(`checking property type equal in ${lang} bundle`, () => {
+      const data = findUndefinedInBundle(
+        new Document(Bundle.readBundlefile(lang)),
+        standardBundle
+      );
       for (const { key, status } of data) {
-        test(`${key} in ${lang} should be not undefined`, () =>
-          expect(status).toBe(true));
+        test(`${chalk.cyan(
+          key
+        )} in ${lang} should same type as ${key} in en bundle`, () => {
+          expect(status).toBeTruthy();
+        });
       }
     });
   }
+});
 
-  function findUndefinedInBundle(object: object) {
-    const data: Array<{ key: string; status: boolean }> = [];
-    validateObject(object, standardBundle);
+function findUndefinedInBundle(
+  bundleDocument: Document,
+  standardBundle: Document
+) {
+  const data: Array<{ key: string; status: boolean }> = [];
+  if (!isMap<Scalar, Pair | Collection>(standardBundle.contents))
+    throw new Error("standard bundle contents should be YAMLMap!");
+  if (!isMap<Scalar, Pair | Collection>(bundleDocument.contents))
+    throw new Error("bundle contents should be YAMLMap!");
 
-    function validateObject(
-      object: Record<string, any>,
-      standard: Record<string, any>
-    ) {
-      for (const key of Object.keys(standard)) {
-        const value = object[key];
-        switch (typeof value) {
-          case "undefined":
-            data.push({ key, status: false });
-            break;
-          case "string":
-            data.push({ key, status: true });
-            break;
-          case "object":
-            value === null
-              ? data.push({ key, status: false })
-              : validateObject(value, standardBundle[key as keyof BundleData]);
-            break;
-        }
+  validateObject(bundleDocument.contents, standardBundle.contents);
+
+  function validateObject(
+    bundleMap: YAMLMap<Scalar, Pair | Collection>,
+    standardBundleMap: YAMLMap<Scalar, Pair | Collection>
+  ) {
+    for (const { key, value: standardValue } of standardBundleMap.items) {
+      const bundleValue = bundleMap.get(key.value);
+      if (!bundleValue) {
+        data.push({ key: String(key.value), status: false });
+        continue;
+      }
+
+      if (isMap<Scalar, Pair | Collection>(standardValue)) {
+        if (isMap<Scalar, Pair | Collection>(bundleValue))
+          validateObject(bundleValue, standardValue);
+        else data.push({ key: String(key.value), status: false });
+      } else {
+        data.push({ key: String(key.value), status: true });
       }
     }
-
-    return data;
   }
-});
+
+  return data;
+}
