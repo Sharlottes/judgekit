@@ -3,12 +3,15 @@ name: Publish to NPM
 on: release
 
 jobs:
+  build:
+    uses: sharlottes/judgekit/.github/workflows/build.yml@master
+
   publish-npm:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-    needs: sharlottes/judgekit/.github/workflows/build.yml@master
+    needs: build
     steps:
       - name: CheckOut
         uses: actions/checkout@v3
