@@ -4,13 +4,12 @@ on: [push, workflow_call]
 
 jobs:
   build:
+    uses: sharlottes/judgekit/.github/workflows/setup.yml@main
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
-      - uses: sharlottes/judgekit/.github/workflows/setup.yml@main
-
       - name: Build
         run: yarn && yarn build
 

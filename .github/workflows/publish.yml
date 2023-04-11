@@ -4,13 +4,12 @@ on: release
 
 jobs:
   publish-npm:
+    uses: sharlottes/judgekit/.github/workflows/build.yml@main
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
-      - uses: sharlottes/judgekit/.github/workflows/build.yml@main
-
       - name: Publish to NPM
         run: npm publish
         env:
