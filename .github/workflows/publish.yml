@@ -1,8 +1,6 @@
 name: Publish to NPM
 
-on:
-  release:
-    types: [published]
+on: release
 
 jobs:
   publish-npm:
@@ -11,18 +9,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: CheckOut
-        uses: actions/checkout@v3
-
-      - name: SetUp Node.js 16v
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          registry-url: "https://registry.npmjs.org"
-          always-auth: true
-
-      - name: Build
-        run: npm ci && npm run build
+      - uses: sharlottes/judgekit/.github/workflows/build.yml@main
 
       - name: Publish to NPM
         run: npm publish

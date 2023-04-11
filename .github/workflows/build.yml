@@ -1,23 +1,15 @@
 name: Build
 
-on: push
+on: [push, workflow_call]
 
 jobs:
-  publish-npm:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
-      - name: CheckOut
-        uses: actions/checkout@v3
-
-      - name: SetUp Node.js 16v
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          registry-url: "https://registry.npmjs.org"
-          always-auth: true
+      - uses: sharlottes/judgekit/.github/workflows/setup.yml@main
 
       - name: Build
         run: yarn && yarn build
