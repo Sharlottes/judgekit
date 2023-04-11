@@ -8,10 +8,10 @@ class Bundle {
   public readonly current: BundleData;
 
   constructor() {
-    this.current = this.readYAMLfile(Config.currentLang);
+    this.current = this.readBundlefile(Config.currentLang);
   }
 
-  private readYAMLfile(lang: string): BundleData {
+  public readBundlefile(lang: Langs): BundleData {
     return YAML.parse(
       fs.readFileSync(
         path.join(

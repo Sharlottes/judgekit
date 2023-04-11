@@ -5,6 +5,8 @@ src/
 .gitignore
 .npmignore
 .swcrc
+jest.config.js
 @types
+coverage
 package-lock.json
 tsconfig.json
