@@ -3,13 +3,24 @@ name: Publish to NPM
 on: release
 
 jobs:
+  build:
+    uses: sharlottes/judgekit/.github/workflows/build.yml
+
   publish-npm:
-    uses: sharlottes/judgekit/.github/workflows/build.yml@main
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+    needs: build
     steps:
+      - name: Setup Environment
+        uses: sharlottes/judgekit/.github/workflows/setup.yml
+
+      - name: Download built package
+        uses: actions/download-artifact@v3
+        with:
+          name: built package
+
       - name: Publish to NPM
         run: npm publish
         env:
