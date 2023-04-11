@@ -1,0 +1,11 @@
+{
+  "minify": true,
+  "jsc": {
+    "parser": {
+      "syntax": "typescript"
+    }
+  },
+  "module": {
+    "type": "commonjs"
+  }
+}
