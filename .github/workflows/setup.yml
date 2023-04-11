@@ -9,9 +9,6 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: CheckOut
-        uses: actions/checkout@v3
-
       - name: SetUp Node.js 16v
         uses: actions/setup-node@v3
         with:

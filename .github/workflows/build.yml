@@ -10,7 +10,7 @@ jobs:
       packages: write
     steps:
       - name: Setup Environment
-        uses: ./.github/workflows/setup.yml
+        uses: sharlottes/judgekit/.github/workflows/setup.yml@master
 
       - name: Build
         run: yarn && yarn build
