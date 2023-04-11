@@ -1,6 +1,6 @@
 {
   "name": "judge-toolkit",
-  "version": "0.0.6-hotfix5",
+  "version": "0.0.7",
   "description": "various of toolCLI for code judge, exam, test, etc.",
   "bin": {
     "toolkit": "dist/index.js"

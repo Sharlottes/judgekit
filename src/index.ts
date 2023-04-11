@@ -12,7 +12,7 @@ const withDefaultOption = <T>(value: any, defaultValue: T) =>
   value.toString() === "true" ? defaultValue : value ?? defaultValue;
 
 program
-  .version("0.0.6")
+  .version("0.0.7")
   .name("Code Judge Quick-Tester")
   .description("Various of toolCLI for code judge, exam, test, etc.");
 
