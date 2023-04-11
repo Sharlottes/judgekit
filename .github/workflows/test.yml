@@ -1,14 +1,10 @@
-name: Build
+name: Test
 
-on: [push, workflow_call]
+on: workflow_call
 
 jobs:
   test:
-    uses: sharlottes/judgekit/.github/workflows/test.yml@master
-
-  build:
     runs-on: ubuntu-latest
-    needs: test
     steps:
       - name: CheckOut
         uses: actions/checkout@v3
@@ -22,11 +18,5 @@ jobs:
       - name: Install Packages
         run: yarn
 
-      - name: Build
-        run: yarn build
-
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: built package
-          path: dist
+      - name: Test
+        run: yarn test
