@@ -1,8 +1,6 @@
 name: Node.js Package
 
-on:
-  release:
-    types: [published]
+on: push
 
 jobs:
   publish-npm:
@@ -22,12 +20,12 @@ jobs:
           always-auth: true
 
       - name: Build
-        run: npm ci && npm run build
+        run: yarn && yarn build
 
-      - name: Publish to NPM
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Check NPM Info
-        run: npm info judge-toolkit
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-without-markdown
+          path: |
+            dist
+            !dist/**/*.md
