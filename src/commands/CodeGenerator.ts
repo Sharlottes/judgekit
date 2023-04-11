@@ -18,7 +18,7 @@ export class CodeGeneratorInitor {
     });
     const templatePath = await PathFinder.find(
       templateName + (templateName.endsWith(".js") ? "" : ".js"),
-      "Judgekit",
+      undefined,
       {
         itemType: "file",
         excludeFilter: (path: string) => !path.endsWith(".js"),

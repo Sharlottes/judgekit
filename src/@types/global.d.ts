@@ -1,7 +1,12 @@
 type Langs = "en" | "ko";
 interface BundleData {
   global: Record<"error" | "warn" | "info", string> & {
-    pathfinder: Record<"path_notfound", string>;
+    pathfinder: Record<
+      "path_notfound",
+      "rootpath_choice",
+      "select_path",
+      string
+    >;
   };
   commands: {
     test: Record<

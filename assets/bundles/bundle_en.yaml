@@ -3,7 +3,9 @@ global:
   warn: "WARN"
   info: "INFO"
   pathfinder:
-    path_notfound: "cannot find {0}, Please select another path."
+    path_notfound: "cannot find {0}!"
+    rootpath_choice: "choice root path for select path."
+    select_path: "select the path."
 commands:
   test:
     title: "    Node.js Judge Tester    "
