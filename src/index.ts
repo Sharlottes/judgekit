@@ -6,10 +6,10 @@ import { CodeGeneratorInitor } from "./commands/CodeGenerator";
 import Config from "./core/Config";
 import inquirer from "inquirer";
 
+inquirer.registerPrompt("fuzzypath", require("inquirer-fuzzy-path"));
+
 const withDefaultOption = <T>(value: any, defaultValue: T) =>
   value.toString() === "true" ? defaultValue : value ?? defaultValue;
-
-inquirer.registerPrompt("fuzzypath", require("inquirer-fuzzy-path"));
 
 program
   .version("0.0.6")

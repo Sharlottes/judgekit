@@ -13,7 +13,7 @@ commands:
     error_script_notfound: "{0} script file is not found!"
   generate:
     template_reading:
-      processing: "reading template file..."
+      processing: "reading template file... {0}"
       done: "reading done!"
       error: "{0} is not found."
     overwrite_confirm:

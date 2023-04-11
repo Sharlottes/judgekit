@@ -13,7 +13,7 @@ commands:
     error_script_notfound: "{0} 스크립트 파일을 찾을 수 없습니다!"
   generate:
     template_reading:
-      processing: "템플릿 코드 읽어들이는 중..."
+      processing: "템플릿 코드 읽어들이는 중... {0}"
       done: "읽어들이기 완료!"
       error: "{0}가 존재하지 않습니다."
     overwrite_confirm:

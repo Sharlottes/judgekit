@@ -14,13 +14,14 @@ export class CodeGeneratorInitor {
     outdir: string
   ): Promise<CodeGenerator> {
     const generatePath = await PathFinder.find(outdir, "PWD", {
-      isFile: false,
+      itemType: "dictionary",
     });
     const templatePath = await PathFinder.find(
       templateName + (templateName.endsWith(".js") ? "" : ".js"),
       "Judgekit",
       {
-        excludePath: (path) => !path.endsWith(".js"),
+        itemType: "file",
+        excludeFilter: (path: string) => !path.endsWith(".js"),
       }
     );
 
@@ -37,11 +38,27 @@ class CodeGenerator {
   constructor(private readonly scriptName: string) {}
 
   private findTemplate(): string {
-    console.log(Bundle.current.commands.generate.template_reading.processing);
-    console.time(Bundle.current.commands.generate.template_reading.done);
-    const code = fs.readFileSync(Config.templatePath).toString();
-    console.timeEnd(Bundle.current.commands.generate.template_reading.done);
-    return code;
+    try {
+      console.log(
+        Strings.format(
+          Bundle.current.commands.generate.template_reading.processing,
+          Config.templatePath
+        )
+      );
+      console.time(Bundle.current.commands.generate.template_reading.done);
+      const code = fs.readFileSync(Config.templatePath).toString();
+      console.timeEnd(Bundle.current.commands.generate.template_reading.done);
+
+      return code;
+    } catch (e) {
+      console.log(
+        Strings.format(
+          Bundle.current.commands.generate.template_reading.error,
+          Config.templatePath
+        )
+      );
+      throw e;
+    }
   }
 
   public async start(): Promise<void> {
@@ -90,7 +107,11 @@ class CodeGenerator {
     console.log(
       Strings.format(
         Bundle.current.commands.generate.quick_test_info,
-        chalk.cyan(`toolkit test ${Config.generatePath}/${this.scriptName} -TC`)
+        chalk.cyan(
+          `toolkit test ${Config.generatePath.slice(
+            Config.terminalPath.length + 1
+          )}/${this.scriptName} -TC`
+        )
       ) + `\nhappy hacking :)`
     );
     process.exit(0);
