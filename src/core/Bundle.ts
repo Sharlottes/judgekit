@@ -5,28 +5,24 @@ import Config from "./Config";
 
 class Bundle {
   public readonly langs: Langs[] = ["en", "ko"];
-  public readonly bundles: Record<Langs, BundleData>;
-  public get current(): BundleData {
-    return this.bundles[Config.currentLang];
-  }
+  public readonly current: BundleData;
 
   constructor() {
-    const readYAMLfile = (lang: string): BundleData =>
-      YAML.parse(
-        fs.readFileSync(
-          path.join(
-            Config.projectPath,
-            "/assets",
-            "/bundles",
-            `bundle_${lang}.yaml`
-          ),
-          "utf8"
-        )
-      );
+    this.current = this.readYAMLfile(Config.currentLang);
+  }
 
-    this.bundles = Object.fromEntries(
-      this.langs.map((lang) => [lang, readYAMLfile(lang)])
-    ) as Record<Langs, BundleData>;
+  private readYAMLfile(lang: string): BundleData {
+    return YAML.parse(
+      fs.readFileSync(
+        path.join(
+          Config.projectPath,
+          "/assets",
+          "/bundles",
+          `bundle_${lang}.yaml`
+        ),
+        "utf8"
+      )
+    );
   }
 }
 
