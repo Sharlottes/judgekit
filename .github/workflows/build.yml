@@ -9,8 +9,11 @@ jobs:
       contents: read
       packages: write
     steps:
+      - name: CheckOut
+        uses: actions/checkout@v3
+
       - name: Setup Environment
-        uses: sharlottes/judgekit/.github/workflows/setup.yml@master
+        uses: ./.github/workflows/setup.yml
 
       - name: Build
         run: yarn && yarn build

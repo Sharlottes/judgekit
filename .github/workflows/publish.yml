@@ -4,6 +4,7 @@ on: release
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     uses: sharlottes/judgekit/.github/workflows/build.yml@master
 
   publish-npm:
@@ -13,8 +14,11 @@ jobs:
       packages: write
     needs: build
     steps:
+      - name: CheckOut
+        uses: actions/checkout@v3
+
       - name: Setup Environment
-        uses: sharlottes/judgekit/.github/workflows/setup.yml@master
+        uses: ./.github/workflows/setup.yml
 
       - name: Download built package
         uses: actions/download-artifact@v3
