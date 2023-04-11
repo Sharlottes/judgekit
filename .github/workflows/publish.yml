@@ -3,22 +3,18 @@ name: Publish to NPM
 on: release
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    uses: sharlottes/judgekit/.github/workflows/build.yml@master
-
   publish-npm:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-    needs: build
+    needs: sharlottes/judgekit/.github/workflows/build.yml@master
     steps:
       - name: CheckOut
         uses: actions/checkout@v3
 
       - name: Setup Environment
-        uses: /.github/workflows/setup.yml
+        uses: ./.github/workflows/setup.yml
 
       - name: Download built package
         uses: actions/download-artifact@v3
