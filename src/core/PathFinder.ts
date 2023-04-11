@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 import inquirer, { type QuestionCollection } from "inquirer";
 
 import Config from "./Config";
@@ -9,26 +8,18 @@ import Log from "./Log";
 
 class PathFinder {
   public static async find(
-    relativePath: string,
+    path: string,
+    name: string,
     relatedTo?: "PWD" | "Judgekit" | undefined,
     options: Omit<
       QuestionCollection,
       "type" | "name" | "message" | "rootPath"
     > = {}
   ) {
-    if (relatedTo) {
-      const rootPath =
-        relatedTo === "PWD" ? Config.terminalPath : Config.projectPath;
-      const resolvedPath = path.resolve(rootPath, relativePath);
-
-      if (fs.existsSync(resolvedPath)) return resolvedPath;
-    }
+    if (fs.existsSync(path)) return path;
 
     Log.warn(
-      Strings.format(
-        Bundle.current.global.pathfinder.path_notfound,
-        relativePath
-      )
+      Strings.format(Bundle.current.global.pathfinder.path_notfound, name)
     );
     relatedTo ??= await inquirer
       .prompt<{
@@ -40,7 +31,7 @@ class PathFinder {
           choices: ["Pring Working Directory", "Judegekit Local"],
           message: Strings.format(
             Bundle.current.global.pathfinder.rootpath_choice,
-            relativePath
+            name
           ),
         },
       ])

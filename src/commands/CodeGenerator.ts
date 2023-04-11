@@ -13,11 +13,20 @@ export class CodeGeneratorInitor {
     templateName: string,
     outdir: string
   ): Promise<CodeGenerator> {
-    const generatePath = await PathFinder.find(outdir, "PWD", {
-      itemType: "dictionary",
-    });
+    const generatePath = await PathFinder.find(
+      path.resolve(Config.projectPath, outdir),
+      outdir,
+      "PWD",
+      {
+        itemType: "dictionary",
+      }
+    );
     const templatePath = await PathFinder.find(
-      templateName + (templateName.endsWith(".js") ? "" : ".js"),
+      path.resolve(
+        Config.terminalPath,
+        templateName + (templateName.endsWith(".js") ? "" : ".js")
+      ),
+      templateName,
       undefined,
       {
         itemType: "file",
