@@ -5,15 +5,16 @@ on: [push, workflow_call]
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: CheckOut
         uses: actions/checkout@v3
 
-      - name: Setup Environment
-        uses: ./.github/workflows/setup.yml
+      - name: SetUp Node.js 16v
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+          always-auth: true
 
       - name: Build
         run: yarn && yarn build
