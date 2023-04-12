@@ -2,6 +2,9 @@ name: Test
 
 on: workflow_call
 
+env:
+  CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
+  
 jobs:
   dependency_cache:
     uses: sharlottes/judgekit/.github/workflows/dependency_cache.yml@master
