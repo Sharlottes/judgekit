@@ -19,8 +19,8 @@ describe("test Config core", () => {
     });
   });
 
-  describe("testing validatePath() in Config.ts", () => {
-    const testCasePath = path.join(Config.terminalPath, "./testcase.hjson");
+  describe("testing validatePath()", () => {
+    const testCasePath = path.join(Config.terminalPath, "testcase.hjson");
 
     it("should get testcase data when its file exists", () => {
       const wasItExist = fs.existsSync(testCasePath);
@@ -37,7 +37,8 @@ describe("test Config core", () => {
       if (!wasItExist) fs.unlinkSync(testCasePath);
     });
   });
-  describe("testing findConfigData() in Config.ts", () => {
+
+  describe("testing findConfigData()", () => {
     const localConfigPath = path.resolve(process.cwd(), "./kitconfig.json");
     const globalConfigPath = path.resolve(homedir(), "./kitconfig.json");
     const temp = fs.readFileSync(globalConfigPath);
