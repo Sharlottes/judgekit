@@ -8,7 +8,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs: setup
+    needs: dependency_cache
     steps:
       - name: Check out current commit (${{ github.sha }})
         uses: actions/checkout@v3
