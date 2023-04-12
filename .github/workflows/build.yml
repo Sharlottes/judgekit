@@ -46,7 +46,7 @@ jobs:
       - name: Save build cache
         if: steps.cache_built_packages.outputs.cache-hit == ''
         uses: actions/cache/restore@v3
-        id: cache_built_packages
+        id: save_cache_built_packages
         with:
           path: ${{ env.CACHED_BUILD_PATHS }}
           key: ${{ runner.os }}-node-${{ env.BUILD_CACHE_KEY }}
