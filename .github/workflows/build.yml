@@ -26,18 +26,14 @@ jobs:
           node-version: "16.x"
 
       - name: Check dependency cache
-        uses: actions/cache@v2
+        uses: actions/cache/restore@v3
         id: cache_dependencies
         with:
           path: ${{ env.CACHED_DEPENDENCY_PATHS }}
           key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
 
-      - name: Install Node.js Packages when no packages cache
-        if: steps.cache_dependencies.outputs.cache-hit == ''
-        run: yarn
-        
-      - name: Check build cache
-        uses: actions/cache@v2
+      - name: Restore build cache
+        uses: actions/cache/restore@v3
         id: cache_built_packages
         with:
           path: ${{ env.CACHED_BUILD_PATHS }}
@@ -46,6 +42,14 @@ jobs:
       - name: Build when no build cache
         if: steps.cache_built_packages.outputs.cache-hit == ''
         run: yarn build
+
+      - name: Save build cache
+        if: steps.cache_built_packages.outputs.cache-hit == ''
+        uses: actions/cache/restore@v3
+        id: cache_built_packages
+        with:
+          path: ${{ env.CACHED_BUILD_PATHS }}
+          key: ${{ runner.os }}-node-${{ env.BUILD_CACHE_KEY }}
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
