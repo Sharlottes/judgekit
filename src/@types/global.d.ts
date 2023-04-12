@@ -26,4 +26,11 @@ interface BundleData {
   };
 }
 
+interface ConfigData {
+  testcasePath?: string;
+  templatePath?: string;
+  generatePath?: string;
+  currentLang?: Langs;
+}
+
 type ValueOf<T> = T[keyof T];
