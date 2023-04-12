@@ -4,8 +4,7 @@ import chalk from "chalk";
 import inquirer from "inquirer";
 import childProcess from "child_process";
 import Strings from "../utils/Strings";
-import { Bundle, Config } from "../core";
-import PathFinder from "../core/PathFinder";
+import { Bundle, Config, PathFinder } from "../core";
 
 export class CodeGeneratorInitor {
   public static async init(
