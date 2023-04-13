@@ -35,7 +35,6 @@ class Config implements Required<ConfigData> {
   constructor(data: ConfigData & { configPath: string }) {
     this.projectPath = path.resolve(__dirname, "..", "..");
     this.terminalPath = path.join(String(process.cwd()));
-    console.log(this.terminalPath);
     this.configPath = data.configPath;
 
     this.currentLang = data.currentLang || "en";
