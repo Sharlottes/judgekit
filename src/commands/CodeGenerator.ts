@@ -13,7 +13,7 @@ export class CodeGeneratorInitor {
     outdir: string
   ): Promise<CodeGenerator> {
     const generatePath = await PathFinder.find(
-      path.resolve(Config.projectPath, outdir),
+      path.resolve(Config.terminalPath, outdir),
       outdir,
       "PWD",
       {
@@ -22,7 +22,7 @@ export class CodeGeneratorInitor {
     );
     const templatePath = await PathFinder.find(
       path.resolve(
-        Config.terminalPath,
+        Config.projectPath,
         templateName + (templateName.endsWith(".js") ? "" : ".js")
       ),
       templateName,
