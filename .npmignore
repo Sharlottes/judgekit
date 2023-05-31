@@ -6,7 +6,9 @@ src/
 .npmignore
 .swcrc
 jest.config.js
+*.test.js
 @types
 coverage
 package-lock.json
 tsconfig.json
+README.md

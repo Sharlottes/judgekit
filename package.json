@@ -1,6 +1,6 @@
 {
   "name": "judgekit",
-  "version": "0.0.7-hotfix3",
+  "version": "0.0.7-hotfix4",
   "description": "various of toolCLI for code judge, exam, test, etc.",
   "bin": {
     "judgekit": "bin/index.js"
