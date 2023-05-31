@@ -25,16 +25,14 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           always-auth: true
 
-      - name: create and move to bin dir
-        run: mkdir bin && cd bin
+      - name: make bin dir
+        run: mkdir bin
 
       - name: Download bin package
         uses: actions/download-artifact@v3
         with:
           name: built package
-
-      - name: move back to main
-        run: cd ..
+          path: ./bin
 
       - name: Publish to NPM
         run: npm publish
