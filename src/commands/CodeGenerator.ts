@@ -116,7 +116,7 @@ class CodeGenerator {
       Strings.format(
         Bundle.current.commands.generate.quick_test_info,
         chalk.cyan(
-          `toolkit test ${Config.generatePath.slice(
+          `judgekit test ${Config.generatePath.slice(
             Config.terminalPath.length + 1
           )}/${this.scriptName} -TC`
         )

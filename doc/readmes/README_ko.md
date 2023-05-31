@@ -1,4 +1,4 @@
-<h1 align="center">Judge Toolkit</h1>
+<h1 align="center">Judgekit</h1>
 <div align="center">
 
 [![typescript](https://img.shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=white)](https://www.typescriptlang.org/)
@@ -12,7 +12,7 @@
 
 </div>
 
-Judge Toolkit는 빠른 코드 테스트와 쉬운 코드 생성을 위해 만들어졌습니다.
+Judgekit는 빠른 코드 테스트와 쉬운 코드 생성을 위해 만들어졌습니다.
 이 모듈에선 매번 테스트를 할 때마다 새로운 Node.js 프로세서가 주어진 스크립트 파일을 실행하기 위해 생성됩니다.  
 그러므로 스크립트 파일을 변경하고 나서 터미널에서 뭔갈 건드릴 필요가 없습니다. 그냥 엔터 키만 누르면 됩니다!
 
@@ -25,23 +25,23 @@ Judge Toolkit는 빠른 코드 테스트와 쉬운 코드 생성을 위해 만�
 이건 CLI 모듈이기 때문에 전역으로 설치할걸 강력히 권고합니다.
 
 ```bash
-yarn global add toolkit
-npm install -g toolkit
+yarn global add judgekit
+npm install -g judgekit
 ```
 
 # 특징
 
-기본 명령어는 `toolkit`입니다. 모든 인자, 옵션, 부속명령어들은 이 명령어를 기반으로 두고 있습니다.
-먼저, `toolkit --help` 명령어로 모든 명령어와 CLI 설명을 볼 수 있습니다.
+기본 명령어는 `judgekit`입니다. 모든 인자, 옵션, 부속명령어들은 이 명령어를 기반으로 두고 있습니다.
+먼저, `judgekit --help` 명령어로 모든 명령어와 CLI 설명을 볼 수 있습니다.
 
 ## 스크립트 테스트하기
 
 특정 자바스크립트 파일을 아래 예제와 같이 `test` 명령어로 실행할 수 있습니다.
 
 ```bash
-toolkit test <script[.js]>
-toolkit test 1000
-toolkit test 1000.js
+judgekit test <script[.js]>
+judgekit test 1000
+judgekit test 1000.js
 ```
 
 이 CLI에선 오직 자바스크립트만이 허용되기 때문에 위 예제와 같이 `.js` 확장자를 직접 입력할 필욘 없습니다. 또한 스크립트 파일을 바꿀 때 CLI를 재시작할 필요가 없습니다. 왜냐하면 스크립트 프로세서는 테스트를 계속할 때마다 재생성되기 때문입니다.  
@@ -56,9 +56,9 @@ toolkit test 1000.js
 특정 스크립트 파일을 불러오고 자동으로 테스트 케이스를 실행하고 싶으시다면 아래 예제들과 같이 `-TC` 옵션을 사용하면 됩니다.
 
 ```bash
-toolkit test <script[.js]> -TC
-toolkit test <script[.js]> --testcase
-toolkit test <script[.js]> --testcase customHJSON.hjson
+judgekit test <script[.js]> -TC
+judgekit test <script[.js]> --testcase
+judgekit test <script[.js]> --testcase customHJSON.hjson
 ```
 
 보다시피 커스텀 파일이 있다면 그걸 사용할 수도 있습니다. 기본 테스트케이스 파일 이름은 `testcase.hjson` 입니다.  
@@ -81,9 +81,9 @@ toolkit test <script[.js]> --testcase customHJSON.hjson
 명령어 문법은 아래 예제와 같습니다.
 
 ```bash
-toolkit generate <script_name[.js]> [template_script_name[.js]] [-O outdir]
-toolkit generate examples/1000
-toolkit generate 1000 -O examples
+judgekit generate <script_name[.js]> [template_script_name[.js]] [-O outdir]
+judgekit generate examples/1000
+judgekit generate 1000 -O examples
 ```
 
 > **참고**
@@ -91,12 +91,12 @@ toolkit generate 1000 -O examples
 
 ## 설정
 
-Judge Toolkit CLI 는 `kitconfig.json`로 설정 파일을 가져옵니다.  
-설정 파일은 유저 디렉토리에 자동으로 생성됩니다. 프로젝트 루트 경로에 설정 파일이 있을 경우 CLI는 그걸 먼저 불러옵니다. 설정 파일은 CLI 설정과 옵션 케싱에 사용됩니다. `toolkit test 1000 -TC specialTestCase.json` 명령어로 예를 들자면, 설정은 이 옵션을 설정 파일에 기록할 것입니다. 그러므로 옵션을 설정하고 나면 그 옵션을 다시 사용할 필요가 없어집니다.
+Judge judgekit CLI 는 `kitconfig.json`로 설정 파일을 가져옵니다.  
+설정 파일은 유저 디렉토리에 자동으로 생성됩니다. 프로젝트 루트 경로에 설정 파일이 있을 경우 CLI는 그걸 먼저 불러옵니다. 설정 파일은 CLI 설정과 옵션 케싱에 사용됩니다. `judgekit test 1000 -TC specialTestCase.json` 명령어로 예를 들자면, 설정은 이 옵션을 설정 파일에 기록할 것입니다. 그러므로 옵션을 설정하고 나면 그 옵션을 다시 사용할 필요가 없어집니다.
 
 ```bash
-toolkit test 1000 -TC testcase.yaml
-toolkit test 1000 -TC
+judgekit test 1000 -TC testcase.yaml
+judgekit test 1000 -TC
 ```
 
 ### format
@@ -114,10 +114,10 @@ toolkit test 1000 -TC
 
 ### 설정 명령어
 
-또한 일부 설정은 `toolkit config`로 설정할 수 있습니다.  
+또한 일부 설정은 `judgekit config`로 설정할 수 있습니다.  
 현재 `currentLang` 설정만을 위해 사용할 수 있습니다.
 
 ```bash
-toolkit config -L en
-toolkit config --lang ko
+judgekit config -L en
+judgekit config --lang ko
 ```
