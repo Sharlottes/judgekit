@@ -3,14 +3,14 @@
   "version": "0.0.7-hotfix1",
   "description": "various of toolCLI for code judge, exam, test, etc.",
   "bin": {
-    "toolkit": "dist/index.js"
+    "toolkit": "bin/index.js"
   },
   "scripts": {
-    "dev": "npm run build && node dist",
-    "testTest": "npm run build && cd .. && node judgekit/dist test judgekit/doc/examples/1000",
-    "testGenerate": "npm run build && cd .. && node judgekit/dist generate 234 -O doc/examples",
+    "dev": "npm run build && node bin",
+    "testTest": "npm run build && cd .. && node judgekit/bin test judgekit/doc/examples/1000",
+    "testGenerate": "npm run build && cd .. && node judgekit/bin generate 234 -O doc/examples",
     "typecheck": "tsc --noemit",
-    "build": "rm -rf dist && npm run typecheck && swc src -d dist",
+    "build": "rm -rf bin && npm run typecheck && swc src -d bin",
     "test": "jest"
   },
   "author": "sharlottes",

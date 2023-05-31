@@ -4,7 +4,7 @@ on: [push, workflow_call]
 
 env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/node_modules
-  CACHED_BUILD_PATHS: ${{ github.workspace }}/dist
+  CACHED_BUILD_PATHS: ${{ github.workspace }}/bin
   BUILD_CACHE_KEY: ${{ github.sha }}
 
 jobs:
