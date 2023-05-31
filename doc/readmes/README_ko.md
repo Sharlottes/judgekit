@@ -25,8 +25,8 @@ Judge Toolkit는 빠른 코드 테스트와 쉬운 코드 생성을 위해 만�
 이건 CLI 모듈이기 때문에 전역으로 설치할걸 강력히 권고합니다.
 
 ```bash
-yarn global add judge-toolkit
-npm install -g judge-toolkit
+yarn global add toolkit
+npm install -g toolkit
 ```
 
 # 특징

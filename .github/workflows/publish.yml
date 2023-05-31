@@ -36,4 +36,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Check NPM Info
-        run: npm info judge-toolkit
+        run: npm info toolkit
