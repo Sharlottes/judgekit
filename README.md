@@ -16,7 +16,7 @@ the CLI node module for JS code judge quick testing.
 
 Judgekit is made for easy code generation and quick code testing. With this module, every time you test code a new node process is created for running the given script file. You don't need to change any configuration after editing the script file while testing - just press the enter key in the termial!
 
-> **notice**  
+> [!NOTE]  
 > this modules is based on [my tester.js gist](https://gist.github.com/Sharlottes/b2332b88695d11686dab5b9248c433da).
 > most things in there are same in here too, but it's not a bad choice to see the gist.
 
@@ -89,7 +89,7 @@ judgekit generate examples/1000
 judgekit generate 1000 -O examples
 ```
 
-> **notice**  
+> [!NOTE]  
 > currently you can use only one template - `readline_ex.js`, but i will add more template scripts and support custom template via command argument.
 
 ## Config
